@@ -219,7 +219,7 @@
 @endif
 
 @if ($usr->can('jobAdd') || $usr->can('jobView') || $usr->can('jobUpdate') || $usr->can('jobDelete'))
-<li class="{{ Route::is('jobList.index') ? 'active' : '' }}">
+<li class="{{ Route::is('jobList.index') || Route::is('jobList.create') || Route::is('jobList.edit')   ? 'active' : '' }}">
     <a href="{{ route('jobList.index') }}">
         <i class="uil-label"></i>
         <span>Job List</span>

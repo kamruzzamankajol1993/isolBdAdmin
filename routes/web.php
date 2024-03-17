@@ -122,6 +122,15 @@ Route::group(['prefix' => 'admin'], function () {
 
 
     Route::resource('jobList', JobController::class);
+
+    Route::controller(JobController::class)->group(function () {
+
+        Route::get('getJobTitleForDepartment','getJobTitleForDepartment')->name('getJobTitleForDepartment');
+
+
+    });
+
+
     Route::resource('jobSeeker', JobSeekerController::class);
 
     Route::controller(JobSeekerController::class)->group(function () {

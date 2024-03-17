@@ -1,0 +1,117 @@
+
+.form-group.floating>label {
+    bottom: 34px;
+    left: 8px;
+    position: relative;
+    background-color: white;
+    padding: 0px 5px 0px 5px;
+    font-size: 1.1em;
+    transition: 0.1s;
+    pointer-events: none;
+    font-weight: 500 !important;
+    transform-origin: bottom left;
+    color: rgba(0,0,0,.6) !important;
+}
+
+
+.form-group.floating textarea:valid~label {
+    bottom:75px;
+    left: 8px;
+    position: relative;
+    background-color: white;
+    padding: 0px 5px 0px 5px;
+    font-size: 1.4em;
+    transition: 0.1s;
+    pointer-events: none;
+    font-weight: 500 !important;
+    transform-origin: bottom left;
+    color: rgba(0,0,0,.6) !important;
+}
+
+.select2-hidden-accessible.floating:valid~label {
+    bottom: 32px;
+    left: 8px;
+    position: relative;
+    background-color: white;
+    padding: 0px 5px 0px 5px;
+    font-size: 1.1rem;
+    transition: 0.1s;
+    pointer-events: none;
+    font-weight: 500 !important;
+    transform-origin: bottom left;
+    color: rgba(1, 1, 1, 0.6) !important;
+}
+
+
+.select2-container .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    height: 42px;
+}
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 9px;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    line-height: 42px;
+    padding-left: 12px;
+    color: #495057;
+}
+
+.select2-container--default .select2-selection--multiple
+{
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 9px;
+}
+
+
+/*Multiple*/
+.select2-container .select2-selection--multiple
+{
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    height: 42px;
+}
+
+
+
+.form-control.floating:focus~label{
+    transform: translate(1px,-96%) scale(0.80);
+    opacity: 1;
+    color: #0042db !important;
+    font-size: 1.4em;
+}
+
+.form-control.floating:valid~label{
+    transform-origin: bottom left;
+    transform: translate(1px,-96%) scale(0.80);
+    opacity: 1;
+    font-size: 1.4em;
+}
+
+.form-control:focus
+{
+    border: 1px solid #0042db !important;
+}
+
+.form-control
+{
+    padding: 10px 16px !important;
+    border-radius: .4rem;
+}
+
+label
+{
+    margin-bottom: 4px !important;
+}
+
+.modal-open .select2-dropdown {
+    z-index: 10060;
+}
+
+.modal-open .select2-close-mask {
+    z-index: 10055;
+}

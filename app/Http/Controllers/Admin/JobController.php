@@ -92,7 +92,7 @@ class JobController extends Controller
              $number = sprintf('%05d',$mainNumber);
 
         }else{
-            $mainNumber = $LastId;
+            $mainNumber = $LastId + 1;
             $number = sprintf('%05d',$mainNumber);
 
         }

@@ -95,6 +95,14 @@
                                                         <td class="text-muted">{{ $job_list->job_type }}</td>
                                                     </tr>
                                                     <tr>
+                                                        <th class="ps-0" scope="row">Job Contract Type</th>
+                                                        <td class="text-muted">{{ $job_list->job_contract_type }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row">Job Location</th>
+                                                        <td class="text-muted">{{ $job_list->job_location }}</td>
+                                                    </tr>
+                                                    <tr>
                                                         <th class="ps-0" scope="row">Contract Duration</th>
                                                         <td class="text-muted">{{ $job_list->duration }}</td>
                                                     </tr>

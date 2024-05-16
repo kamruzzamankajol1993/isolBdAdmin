@@ -218,6 +218,24 @@
 </li>
 @endif
 
+@if ($usr->can('typeOfContactAdd') || $usr->can('typeOfContactView') || $usr->can('typeOfContactUpdate') || $usr->can('typeOfContactDelete'))
+<li class="{{ Route::is('typeOfContactList.index') ? 'active' : '' }}">
+    <a href="{{ route('typeOfContactList.index') }}">
+        <i class="uil-label"></i>
+        <span>Job Contract Type</span>
+    </a>
+</li>
+@endif
+
+@if ($usr->can('locationAdd') || $usr->can('locationView') || $usr->can('locationUpdate') || $usr->can('locationDelete'))
+<li class="{{ Route::is('locationList.index') ? 'active' : '' }}">
+    <a href="{{ route('locationList.index') }}">
+        <i class="uil-label"></i>
+        <span>Job Location</span>
+    </a>
+</li>
+@endif
+
 @if ($usr->can('jobAdd') || $usr->can('jobView') || $usr->can('jobUpdate') || $usr->can('jobDelete'))
 <li class="{{ Route::is('jobList.index') || Route::is('jobList.create') || Route::is('jobList.edit')   ? 'active' : '' }}">
     <a href="{{ route('jobList.index') }}">

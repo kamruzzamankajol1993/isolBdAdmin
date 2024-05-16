@@ -4,19 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Jobcategory;
-class JobcategoryController extends Controller
+use App\Models\ContactType;
+class ContactTypeController extends Controller
 {
     public function index(){
 
-        $headline_list = Jobcategory::get();
-        return view('backend.job_category.index',['headline_list'=>$headline_list]);
+        $headline_list = ContactType::latest()->get();
+        return view('backend.ContractType.index',['headline_list'=>$headline_list]);
     }
 
 
     public function store(Request $request){
 
-        $user = new Jobcategory();
+        $user = new ContactType();
 
         $user->name = $request->name;
         //$user->des = $request->des;
@@ -29,7 +29,7 @@ class JobcategoryController extends Controller
 
     public function update(Request $request){
 
-        $user = Jobcategory::find($request->id);
+        $user = ContactType::find($request->id);
 
         $user->name = $request->name;
         //$user->des = $request->des;
@@ -39,10 +39,10 @@ class JobcategoryController extends Controller
 
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
 
-        $admins = Jobcategory::find($id);
+        $admins = ContactType::find($id);
         if (!is_null($admins)) {
             $admins->delete();
         }

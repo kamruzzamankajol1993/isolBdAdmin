@@ -83,6 +83,37 @@
                                                     </div>
 
 
+                                                     <!-- new code start --->
+
+                                                     <div class="form-group col-md-6 col-sm-12 mt-3">
+                                                        <label for="name">Job Contract Type</label>
+                                                        <select required class="form-control form-control-sm selectTag" id="job_contract_type" name="job_contract_type">
+                                    <option value="">---Please Select---</option>
+                                                            @foreach($contactTypeList as $all_dp)
+                                    <option value="{{ $all_dp->name }}"  {{ $job_list->job_contract_type == $all_dp->name ? 'selected':''  }}>{{ $all_dp->name }}</option>
+                                                            @endforeach
+
+                                                        </select>
+
+                                                    </div>
+
+
+                                                    <div class="form-group col-md-6 col-sm-12 mt-3">
+                                                        <label for="name">Job Location</label>
+                                                        <select required class="form-control form-control-sm selectTag" id="job_location" name="job_location">
+                                    <option value="">---Please Select---</option>
+                                                            @foreach($locationList as $all_dp)
+                                    <option value="{{ $all_dp->name }}"  {{ $job_list->job_location == $all_dp->name ? 'selected':''  }}>{{ $all_dp->name }}</option>
+                                                            @endforeach
+
+                                                        </select>
+
+                                                    </div>
+
+
+                                                    <!-- new code end -->
+
+
                                                   </div>
 
 

@@ -4,19 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Jobcategory;
-class JobcategoryController extends Controller
+use App\Models\Location;
+class LocationController extends Controller
 {
     public function index(){
 
-        $headline_list = Jobcategory::get();
-        return view('backend.job_category.index',['headline_list'=>$headline_list]);
+        $headline_list = Location::latest()->get();
+        return view('backend.locationList.index',['headline_list'=>$headline_list]);
     }
 
 
     public function store(Request $request){
 
-        $user = new Jobcategory();
+        $user = new Location();
 
         $user->name = $request->name;
         //$user->des = $request->des;
@@ -29,7 +29,7 @@ class JobcategoryController extends Controller
 
     public function update(Request $request){
 
-        $user = Jobcategory::find($request->id);
+        $user = Location::find($request->id);
 
         $user->name = $request->name;
         //$user->des = $request->des;
@@ -39,10 +39,10 @@ class JobcategoryController extends Controller
 
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
 
-        $admins = Jobcategory::find($id);
+        $admins = Location::find($id);
         if (!is_null($admins)) {
             $admins->delete();
         }

@@ -31,6 +31,8 @@ use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Admin\PartnerWithUsController;
 use App\Http\Controllers\Admin\JobSeekerController;
 use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\ContactTypeController;
+use App\Http\Controllers\Admin\LocationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -120,6 +122,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['prefix' => 'admin'], function () {
 
 
+    Route::resource('locationList',  LocationController::class);
+    Route::resource('typeOfContactList',  ContactTypeController::class);
 
     Route::resource('jobList', JobController::class);
 

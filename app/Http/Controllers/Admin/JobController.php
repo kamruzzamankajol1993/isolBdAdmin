@@ -11,6 +11,8 @@ use App\Models\Jobcategory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use App\Models\Location;
+use App\Models\ContactType;
 class JobController extends Controller
 {
     /**
@@ -29,12 +31,15 @@ class JobController extends Controller
         $headline_list2 = Jobdepartment::latest()->get();
         $headline_list1 = Jobcategory::latest()->get();
 
+        $contactTypeList = ContactType::latest()->get();
+        $locationList = Location::latest()->get();
+
     } catch (\Exception $e) {
         return redirect()->back()->with('error','some thing went wrong ');
       }
 
 
-        return view('backend.job.index',['job_list'=>$job_list,'headline_list'=>$headline_list,'headline_list1'=>$headline_list1,'headline_list2'=>$headline_list2]);
+        return view('backend.job.index',['locationList'=>$locationList,'contactTypeList'=>$contactTypeList,'job_list'=>$job_list,'headline_list'=>$headline_list,'headline_list1'=>$headline_list1,'headline_list2'=>$headline_list2]);
     }
 
     /**
@@ -52,12 +57,15 @@ class JobController extends Controller
         $headline_list2 = Jobdepartment::latest()->get();
         $headline_list1 = Jobcategory::latest()->get();
 
+        $contactTypeList = ContactType::latest()->get();
+        $locationList = Location::latest()->get();
+
     } catch (\Exception $e) {
         return redirect()->back()->with('error','some thing went wrong ');
       }
 
 
-        return view('backend.job.create',['headline_list'=>$headline_list,'headline_list1'=>$headline_list1,'headline_list2'=>$headline_list2]);
+        return view('backend.job.create',['locationList'=>$locationList,'contactTypeList'=>$contactTypeList,'headline_list'=>$headline_list,'headline_list1'=>$headline_list1,'headline_list2'=>$headline_list2]);
     }
 
 
@@ -138,6 +146,8 @@ class JobController extends Controller
             $admins->job_title_slug = Str::slug($request->job_category_id.' '.$request->job_title_id);
             $admins->salary = $request->salary;
             $admins->job_area = $request->job_area;
+            $admins->job_contract_type = $request->job_contract_type;
+            $admins->job_location = $request->job_location;
             $admins->job_type = $request->job_type;
             $admins->duration = $request->duration;
             $admins->user_id = Auth::guard('admin')->user()->id;
@@ -178,12 +188,15 @@ class JobController extends Controller
         $headline_list2 = Jobdepartment::latest()->get();
         $headline_list1 = Jobcategory::latest()->get();
 
+        $contactTypeList = ContactType::latest()->get();
+        $locationList = Location::latest()->get();
+
     } catch (\Exception $e) {
         return redirect()->back()->with('error','some thing went wrong ');
       }
 
 
-        return view('backend.job.view',['job_list'=>$job_list,'headline_list'=>$headline_list,'headline_list1'=>$headline_list1,'headline_list2'=>$headline_list2]);
+        return view('backend.job.view',['locationList'=>$locationList,'contactTypeList'=>$contactTypeList,'job_list'=>$job_list,'headline_list'=>$headline_list,'headline_list1'=>$headline_list1,'headline_list2'=>$headline_list2]);
     }
 
     /**
@@ -203,12 +216,15 @@ class JobController extends Controller
         $headline_list2 = Jobdepartment::latest()->get();
         $headline_list1 = Jobcategory::latest()->get();
 
+        $contactTypeList = ContactType::latest()->get();
+        $locationList = Location::latest()->get();
+
     } catch (\Exception $e) {
         return redirect()->back()->with('error','some thing went wrong ');
       }
 
 
-        return view('backend.job.edit',['job_list'=>$job_list,'headline_list'=>$headline_list,'headline_list1'=>$headline_list1,'headline_list2'=>$headline_list2]);
+        return view('backend.job.edit',['locationList'=>$locationList,'contactTypeList'=>$contactTypeList,'job_list'=>$job_list,'headline_list'=>$headline_list,'headline_list1'=>$headline_list1,'headline_list2'=>$headline_list2]);
     }
 
     /**
@@ -231,6 +247,8 @@ class JobController extends Controller
             $admins->job_title_slug = Str::slug($request->job_category_id.' '.$request->job_title_id);
             $admins->salary = $request->salary;
             $admins->job_area = $request->job_area;
+            $admins->job_contract_type = $request->job_contract_type;
+            $admins->job_location = $request->job_location;
             $admins->job_type = $request->job_type;
             $admins->duration = $request->duration;
             $admins->job_experience = $request->job_experience;

@@ -1,7 +1,7 @@
 @extends('backend.master.master')
 
 @section('title')
-Job Title| {{ $ins_name }}
+Vacancy Title| {{ $ins_name }}
 @endsection
 
 
@@ -15,7 +15,7 @@ Job Title| {{ $ins_name }}
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0">Job Title</h4>
+            <h4 class="mb-0">Vacancy Title</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
@@ -106,7 +106,7 @@ Job Title| {{ $ins_name }}
                                             <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Job Title Information</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Update Vacancy Title Information</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
@@ -135,7 +135,7 @@ Job Title| {{ $ins_name }}
 
 
                                                     <div class="form-group col-md-12 col-sm-12">
-                                                        <label for="name">Job Category </label>
+                                                        <label for="name">Vacancy Category </label>
                                                         <select class="form-control form-control-sm" id="job_cat_edit{{ $user->id }}" name="cat_id">
 
                                                             @foreach($headline_list1 as $all_dp)
@@ -146,7 +146,7 @@ Job Title| {{ $ins_name }}
 
                                                     </div>
                                                     <div class="form-group col-md-12 col-sm-12">
-                                                        <label for="name">Job Department </label>
+                                                        <label for="name">Vacancy Department </label>
                                                         <select class="form-control form-control-sm" id="job_dp_edit{{ $user->id }}" name="dp_id">
 
                                                             @foreach($headline_list2 as $all_dp)
@@ -249,7 +249,7 @@ Job Title| {{ $ins_name }}
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel">Add Job Title Information</h5>
+                <h5 class="modal-title" id="myLargeModalLabel">Add Vacancy Title Information</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -279,7 +279,7 @@ Job Title| {{ $ins_name }}
                 </div> --}}
 
                 <div class="form-group col-md-12 col-sm-12">
-                    <label for="name">Job Category </label>
+                    <label for="name">Vacancy Category </label>
                     <select class="form-control form-control-sm" id="job_cat" name="cat_id">
 <option>Please Select</option>
                         @foreach($headline_list1 as $all_dp)
@@ -292,7 +292,7 @@ Job Title| {{ $ins_name }}
 
 
                 <div class="form-group col-md-12 col-sm-12">
-                    <label for="name">Job Department </label>
+                    <label for="name">Vacancy Department </label>
                     <select class="form-control form-control-sm" id="job_dp" name="dp_id">
 
 

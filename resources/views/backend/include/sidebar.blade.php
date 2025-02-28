@@ -91,44 +91,6 @@
 @endif
     </ul>
 </li>
-@if ($usr->can('employeeSectionView'))
-<li class="menu-title">EMPLOYER</li>
-
-<li>
-    <a href="javascript: void(0);" class="has-arrow waves-effect">
-        <i class="uil-label"></i>
-        <span>Employer</span>
-    </a>
-    <ul class="sub-menu" aria-expanded="false">
-
-        @if ($usr->can('partnerWithUsAdd') || $usr->can('partnerWithUsView') || $usr->can('partnerWithUsDelete') || $usr->can('partnerWithUsUpdate'))
-        <li class="{{ Route::is('partnerWithUs.index')  ? 'active' : '' }}"><a href="{{ route('partnerWithUs.index') }}"> <span>Partner With Us</span> </a></li>
-        @endif
-
-
-
-    </ul>
-</li>
-@endif
-
-<li class="menu-title">Cv Section</li>
-
-<li>
-    <a href="javascript: void(0);" class="has-arrow waves-effect">
-        <i class="uil-label"></i>
-        <span>Job Seeker</span>
-    </a>
-    <ul class="sub-menu" aria-expanded="false">
-
-        @if ($usr->can('jobSeekerAdd') || $usr->can('jobSeekerView') || $usr->can('jobSeekerDelete') || $usr->can('jobSeekerUpdate'))
-        <li class="{{ Route::is('jobSeeker.index')  ? 'active' : '' }}"><a href="{{ route('jobSeeker.index') }}"> <span>Job Seeker</span> </a></li>
-        @endif
-
-
-
-    </ul>
-</li>
-
 <li class="menu-title">HOW IT WORK</li>
 
 @if ($usr->can('how_it_work_view') || $usr->can('how_it_work_update') || $usr->can('how_it_work_delete'))
@@ -139,7 +101,6 @@
     </a>
 </li>
 @endif
-
 <li class="menu-title">WHY US</li>
 
 <li>
@@ -164,12 +125,12 @@
 </li>
 
 
-<li class="menu-title">ABOUT US</li>
+<li class="menu-title">ABOUT ISOL</li>
 
 <li>
     <a href="javascript: void(0);" class="has-arrow waves-effect">
         <i class="uil-label"></i>
-        <span>About us</span>
+        <span>About isol</span>
     </a>
     <ul class="sub-menu" aria-expanded="false">
 
@@ -186,14 +147,40 @@
 
     </ul>
 </li>
+@if ($usr->can('employeeSectionView'))
+<li class="menu-title">EMPLOYER</li>
 
-<li class="menu-title">FILTER</li>
+<li>
+    <a href="javascript: void(0);" class="has-arrow waves-effect">
+        <i class="uil-label"></i>
+        <span>Employer</span>
+    </a>
+    <ul class="sub-menu" aria-expanded="false">
 
-@if ($usr->can('job_category_add') || $usr->can('job_category_view') || $usr->can('job_category_update') || $usr->can('job_category_delete'))
+        @if ($usr->can('partnerWithUsAdd') || $usr->can('partnerWithUsView') || $usr->can('partnerWithUsDelete') || $usr->can('partnerWithUsUpdate'))
+        <li class="{{ Route::is('partnerWithUs.index')  ? 'active' : '' }}"><a href="{{ route('partnerWithUs.index') }}"> <span>Partner With Us</span> </a></li>
+        @endif
+
+
+
+    </ul>
+</li>
+@endif
+
+<li class="menu-title">Vacancy</li>
+
+<li>
+    <a href="javascript: void(0);" class="has-arrow waves-effect">
+        <i class="uil-label"></i>
+        <span>Vacancy</span>
+    </a>
+    <ul class="sub-menu" aria-expanded="false">
+
+      @if ($usr->can('job_category_add') || $usr->can('job_category_view') || $usr->can('job_category_update') || $usr->can('job_category_delete'))
 <li class="{{ Route::is('admin.job_category') ? 'active' : '' }}">
     <a href="{{ route('admin.job_category') }}">
-        <i class="uil-label"></i>
-        <span>Job Category</span>
+        
+        <span>Vacancy Category</span>
     </a>
 </li>
 @endif
@@ -202,8 +189,8 @@
 @if ($usr->can('job_department_add') || $usr->can('job_department_view') || $usr->can('job_department_update') || $usr->can('job_department_delete'))
 <li class="{{ Route::is('admin.job_department') ? 'active' : '' }}">
     <a href="{{ route('admin.job_department') }}">
-        <i class="uil-label"></i>
-        <span>Job Department</span>
+        
+        <span>Vacancy Department</span>
     </a>
 </li>
 @endif
@@ -212,22 +199,129 @@
 @if ($usr->can('job_title_add') || $usr->can('job_title_view') || $usr->can('job_title_update') || $usr->can('job_title_delete'))
 <li class="{{ Route::is('admin.job_title') ? 'active' : '' }}">
     <a href="{{ route('admin.job_title') }}">
-        <i class="uil-label"></i>
-        <span>Job Title</span>
+ 
+        <span>Vacancy Title</span>
+    </a>
+</li>
+@endif
+
+@if ($usr->can('typeOfContactAdd') || $usr->can('typeOfContactView') || $usr->can('typeOfContactUpdate') || $usr->can('typeOfContactDelete'))
+<li class="{{ Route::is('typeOfContactList.index') ? 'active' : '' }}">
+    <a href="{{ route('typeOfContactList.index') }}">
+      
+        <span>Vacancy Contract Type</span>
+    </a>
+</li>
+@endif
+
+@if ($usr->can('locationAdd') || $usr->can('locationView') || $usr->can('locationUpdate') || $usr->can('locationDelete'))
+<li class="{{ Route::is('locationList.index') ? 'active' : '' }}">
+    <a href="{{ route('locationList.index') }}">
+       
+        <span>Vacancy Location</span>
     </a>
 </li>
 @endif
 
 @if ($usr->can('jobAdd') || $usr->can('jobView') || $usr->can('jobUpdate') || $usr->can('jobDelete'))
-<li class="{{ Route::is('jobList.index') ? 'active' : '' }}">
+<li class="{{ Route::is('jobList.index') || Route::is('jobList.create') || Route::is('jobList.edit')   ? 'active' : '' }}">
     <a href="{{ route('jobList.index') }}">
-        <i class="uil-label"></i>
-        <span>Job List</span>
+       
+        <span>Vacancy List</span>
     </a>
 </li>
 @endif
 
 
+
+    </ul>
+</li>
+
+
+
+
+<li class="menu-title">INSIGHT</li>
+@if ($usr->can('eventAdd') || $usr->can('eventView') || $usr->can('eventUpdate') || $usr->can('eventDelete'))
+<li class="{{ Route::is('eventList.index') ? 'active' : '' }}">
+    <a href="{{ route('eventList.index') }}">
+       <i class="uil-label"></i>
+        <span>Event List</span>
+    </a>
+</li>
+@endif
+
+
+
+<li class="menu-title">Contact</li>
+
+<li>
+    <a href="javascript: void(0);" class="has-arrow waves-effect">
+        <i class="uil-label"></i>
+        <span>Contact</span>
+    </a>
+    <ul class="sub-menu" aria-expanded="false">
+
+       @if ($usr->can('mScheduleListAdd') || $usr->can('mScheduleListView') || $usr->can('mScheduleListUpdate') || $usr->can('mScheduleListDelete'))
+<li class="{{ Route::is('mScheduleList.index') ? 'active' : '' }}">
+    <a href="{{ route('mScheduleList.index') }}">
+      
+        <span>Interview Appointment</span>
+    </a>
+</li>
+@endif
+
+@if ($usr->can('inquiryListAdd') || $usr->can('inquiryListView') || $usr->can('inquiryListUpdate') || $usr->can('inquiryListDelete'))
+<li class="{{ Route::is('inquiryList.index') ? 'active' : '' }}">
+    <a href="{{ route('inquiryList.index') }}">
+        
+        <span>EnQuiry List</span>
+    </a>
+</li>
+@endif
+
+@if ($usr->can('complainListAdd') || $usr->can('complainListView') || $usr->can('complainListUpdate') || $usr->can('complainListDelete'))
+<li class="{{ Route::is('complainList.index') ? 'active' : '' }}">
+    <a href="{{ route('complainList.index') }}">
+      
+        <span>Complain List</span>
+    </a>
+</li>
+@endif
+
+@if ($usr->can('surveyListAdd') || $usr->can('surveyListView') || $usr->can('surveyListUpdate') || $usr->can('surveyListDelete'))
+<li class="{{ Route::is('surveyList.index') ? 'active' : '' }}">
+    <a href="{{ route('surveyList.index') }}">
+      
+        <span>Survey List</span>
+    </a>
+</li>
+@endif
+
+
+
+    </ul>
+</li>
+
+
+
+
+<li class="menu-title">Cv Register</li>
+
+<li>
+    <a href="javascript: void(0);" class="has-arrow waves-effect">
+        <i class="uil-label"></i>
+        <span>Cv List</span>
+    </a>
+    <ul class="sub-menu" aria-expanded="false">
+
+        @if ($usr->can('jobSeekerAdd') || $usr->can('jobSeekerView') || $usr->can('jobSeekerDelete') || $usr->can('jobSeekerUpdate'))
+        <li class="{{ Route::is('jobSeeker.index')  ? 'active' : '' }}"><a href="{{ route('jobSeeker.index') }}"> <span>Cv List</span> </a></li>
+        @endif
+
+
+
+    </ul>
+</li>
 <li class="menu-title">SETTING</li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">

@@ -60,6 +60,7 @@ System information | {{ $ins_name }}
                                     <th>Phone</th>
                                     <th>Email</th>
                                      <th>Address</th>
+                                     <th>Blog Url</th>
                                      <th>Front Url</th>
                                      <th>Admin Url</th>
                                     <th>Action</th>
@@ -79,6 +80,7 @@ System information | {{ $ins_name }}
                                 <td>{{ $user->Phone }}</td>
                                 <td>{{ $user->Email }}</td>
                                 <td>{{ $user->Address }}</td>
+                                <td>{{ $user->blogUrl }}</td>
                                 <td>{{ $user->frontUrl }}</td>
                                 <td>{{ $user->adminUrl }}</td>
                                 <td>
@@ -131,6 +133,11 @@ System information | {{ $ins_name }}
                                                             </div>
                                                         </div>
                                                 <div class="row">
+                                                    
+                                                    <div class="form-group col-md-6 col-sm-12">
+                                                        <label for="name">Blog Url</label>
+                                                        <input type="tex" class="form-control form-control-sm" value="{{ $user->blogUrl }}" name="blogUrl" placeholder="Enter Url">
+                                                    </div>
 
 
 

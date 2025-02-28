@@ -40,6 +40,115 @@
     <script src="{{ asset('/') }}public/admin/assets/libs/jquery/jquery.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <link rel="stylesheet" href="https://parsleyjs.org/src/parsley.css">
+    <style>
+
+        .swal2-confirm{
+        margin-left:10px;
+        }
+        .select2.select2-container .select2-selection--multiple .select2-selection__choice .select2-selection__choice__remove {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        height: 22px !important;
+        width: 22px !important;
+        margin: 0 !important;
+        text-align: center !important;
+        color: #e74c3c !important;
+        font-weight: bold !important;
+        font-size: 16px !important;
+        }
+        #pageloader
+        {
+        background: rgba( 255, 255, 255, 0.8 );
+        display: none;
+        height: 100%;
+        position: fixed;
+        width: 100%;
+        z-index: 9999;
+        }
+
+        #pageloader img
+        {
+        left: 50%;
+        margin-left: -32px;
+        margin-top: -32px;
+        position: absolute;
+        top: 50%;
+        }
+            .parsley-required{
+
+                margin-top:10px;
+            }
+
+            .box
+            {
+
+             width:100%;
+             max-width:600px;
+             background-color:#f9f9f9;
+             border:1px solid #ccc;
+             border-radius:5px;
+             padding:16px;
+             margin:0 auto;
+
+            }
+
+            input.parsley-success,
+
+            select.parsley-success,
+
+            textarea.parsley-success {
+
+              color: #468847;
+              background-color: #DFF0D8;
+              border: 1px solid #D6E9C6;
+
+            }
+
+            input.parsley-error,
+
+            select.parsley-error,
+
+            textarea.parsley-error {
+
+              color: #B94A48;
+              background-color: #F2DEDE;
+              border: 1px solid #EED3D7;
+
+            }
+
+
+            .parsley-errors-list {
+
+              margin: 2px 0 3px;
+              padding: 0;
+              list-style-type: none;
+              font-size: 0.9em;
+              line-height: 0.9em;
+              opacity: 0;
+              transition: all .3s ease-in;
+              -o-transition: all .3s ease-in;
+              -moz-transition: all .3s ease-in;
+              -webkit-transition: all .3s ease-in;
+
+            }
+
+
+            .parsley-errors-list.filled {
+
+              opacity: 1;
+
+            }
+
+            .error,.parsley-type, .parsley-required, .parsley-equalto, .parsley-pattern, .parsley-length{
+
+             color:#ff0000;
+
+            }
+
+    </style>
+    <script src="{{ asset('/')}}public/parsely1.js"></script>
 </head>
 
 
@@ -175,7 +284,14 @@
     });
 
 </script>
+<script>
 
+$(".selectTag").select2({
+
+});
+
+
+    </script>
 <script>
     ClassicEditor
     .create( document.querySelector( '#classic-editor' ) )
@@ -189,6 +305,20 @@
     </script>
 @yield('script')
 
+
+<script>
+    $(function(){
+       $(".datepicker").datepicker({
+           dateFormat: "yy-dd-mm",
+           changeMonth: true,
+           changeYear: true,
+           calendarWeeks: true,
+    todayHighlight: true,
+    autoclose: true
+       });
+   });
+
+     </script>
 </body>
 
 </html>

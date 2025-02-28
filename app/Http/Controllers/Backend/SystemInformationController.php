@@ -73,6 +73,7 @@ protected function imageUpload($request){
        $user->Address = $request->Address;
        $user->Phone = $request->Phone;
        $user->Email = $request->Email;
+       $user->blogUrl = $request->blogUrl;
        $user->frontUrl = $request->frontUrl;
        $user->adminUrl = $request->adminUrl;
        $user->logo = $image;
@@ -94,6 +95,7 @@ protected function imageUpload($request){
        $user->Address = $request->Address;
        $user->frontUrl = $request->frontUrl;
        $user->adminUrl = $request->adminUrl;
+       $user->blogUrl = $request->blogUrl;
        $user->Phone = $request->Phone;
        $user->Email = $request->Email;
        if ($request->hasfile('logo')) {

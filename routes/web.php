@@ -31,6 +31,13 @@ use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Admin\PartnerWithUsController;
 use App\Http\Controllers\Admin\JobSeekerController;
 use App\Http\Controllers\Admin\JobController;
+use App\Http\Controllers\Admin\ContactTypeController;
+use App\Http\Controllers\Admin\LocationController;
+use App\Http\Controllers\Admin\SurveyController;
+use App\Http\Controllers\Admin\ComplainController;
+use App\Http\Controllers\Admin\InquiryController;
+use App\Http\Controllers\Admin\MScheduleController;
+use App\Http\Controllers\Admin\EventController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -118,10 +125,45 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'admin'], function () {
+    
+    
+    Route::get('job_title', [JobtitleController::class, 'index'])->name('admin.job_title');
+    
+    
+    Route::resource('eventList',  EventController::class);
+    
+     Route::controller(EventController::class)->group(function () {
+
+        Route::delete('deletePerticipant/{id}','deletePerticipant')->name('deletePerticipant');
 
 
+    });
+    
+    Route::resource('complainList',  ComplainController::class);
+    Route::resource('inquiryList',  InquiryController::class);
+    Route::resource('mScheduleList',  MScheduleController::class);
+    Route::resource('surveyList',  SurveyController::class);
+    
+    
+     Route::controller(MScheduleController::class)->group(function () {
+
+        Route::get('scheduleDownloadCv/{id}','scheduleDownloadCv')->name('scheduleDownloadCv');
+    });
+
+
+    Route::resource('locationList',  LocationController::class);
+    Route::resource('typeOfContactList',  ContactTypeController::class);
 
     Route::resource('jobList', JobController::class);
+
+    Route::controller(JobController::class)->group(function () {
+
+        Route::get('getJobTitleForDepartment','getJobTitleForDepartment')->name('getJobTitleForDepartment');
+
+
+    });
+
+
     Route::resource('jobSeeker', JobSeekerController::class);
 
     Route::controller(JobSeekerController::class)->group(function () {

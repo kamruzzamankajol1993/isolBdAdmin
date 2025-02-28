@@ -1,7 +1,7 @@
 @extends('backend.master.master')
 
 @section('title')
-Job Seeker List| {{ $ins_name }}
+Cv List| {{ $ins_name }}
 @endsection
 
 
@@ -15,7 +15,7 @@ Job Seeker List| {{ $ins_name }}
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0">Job Seeker List</h4>
+            <h4 class="mb-0">Cv List</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">

@@ -1,7 +1,7 @@
 @extends('backend.master.master')
 
 @section('title')
-Job Department| {{ $ins_name }}
+Vacancy Department| {{ $ins_name }}
 @endsection
 
 
@@ -15,7 +15,7 @@ Job Department| {{ $ins_name }}
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0">Job Department</h4>
+            <h4 class="mb-0">Vacancy Department</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
@@ -104,7 +104,7 @@ Job Department| {{ $ins_name }}
                                             <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Job Department Information</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Update Vacancy Department Information</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
@@ -133,7 +133,7 @@ Job Department| {{ $ins_name }}
 
 
                                                     <div class="form-group col-md-12 col-sm-12">
-                                                        <label for="name">Job Category </label>
+                                                        <label for="name">Vacancy Category </label>
                                                         <select class="form-control form-control-sm" id="name" name="cat_id">
 
                                                             @foreach($headline_list1 as $all_dp)
@@ -237,7 +237,7 @@ Job Department| {{ $ins_name }}
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel">Add Job Department Information</h5>
+                <h5 class="modal-title" id="myLargeModalLabel">Add Vacancy Department Information</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -267,7 +267,7 @@ Job Department| {{ $ins_name }}
                 </div> --}}
 
                 <div class="form-group col-md-12 col-sm-12">
-                    <label for="name">Job Category </label>
+                    <label for="name">Vacancy Category </label>
                     <select class="form-control form-control-sm" id="name" name="cat_id">
 
                         @foreach($headline_list1 as $all_dp)

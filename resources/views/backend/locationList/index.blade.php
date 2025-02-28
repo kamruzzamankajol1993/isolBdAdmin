@@ -1,7 +1,7 @@
 @extends('backend.master.master')
 
 @section('title')
-Vacancy category| {{ $ins_name }}
+Location List| {{ $ins_name }}
 @endsection
 
 
@@ -15,7 +15,7 @@ Vacancy category| {{ $ins_name }}
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0">Vacancy category</h4>
+            <h4 class="mb-0">Location List</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
@@ -39,7 +39,7 @@ Vacancy category| {{ $ins_name }}
                         <div class="col-sm-6">
                             <div class="float-right d-md-block">
                                 <div class="dropdown">
-                                @if (Auth::guard('admin')->user()->can('job_category_add'))
+                                @if (Auth::guard('admin')->user()->can('typeOfContactAdd'))
 
 <button class="btn btn-primary dropdown-toggle waves-effect  btn-sm waves-light" type="button" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg456">
                                         <i class="far fa-calendar-plus  mr-2"></i> Add
@@ -92,7 +92,7 @@ Vacancy category| {{ $ins_name }}
 
 
                                     <td>
-                                      @if (Auth::guard('admin')->user()->can('job_category_update'))
+                                      @if (Auth::guard('admin')->user()->can('typeOfContactUpdate'))
 
                     <button type="button"  data-bs-toggle="modal" data-bs-target=".bs-example-modal-lgrr{{ $user->id }}"
                                           class="btn btn-primary waves-light waves-effect  btn-sm" >
@@ -104,13 +104,14 @@ Vacancy category| {{ $ins_name }}
                                             <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Vacancy category Information</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Update Location List Information</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
       <div class="modal-body">
-        <form class="custom-validation" action="{{ route('admin.job_category.update') }}" method="post" enctype="multipart/form-data">
+        <form class="custom-validation" action="{{ route('locationList.update',$user->id) }}" method="post" enctype="multipart/form-data">
                               @csrf
+                              @method('PUT')
                                 <div class="row">
 
                                     <div class="col-lg-12">
@@ -189,17 +190,15 @@ Vacancy category| {{ $ins_name }}
 
 
 
-                                  @if (Auth::guard('admin')->user()->can('job_category_delete'))
-@if($user->id <= 14)
+                                  @if (Auth::guard('admin')->user()->can('typeOfContactDelete'))
 
-@else
 <button   type="button" class="btn btn-danger waves-light waves-effect  btn-sm" onclick="deleteTag({{ $user->id}})" data-toggle="tooltip" title="Delete"><i class="fas fa-trash-alt"></i></button>
-                    <form id="delete-form-{{ $user->id }}" action="{{ route('admin.job_category.delete',$user->id) }}" method="POST" style="display: none;">
+                    <form id="delete-form-{{ $user->id }}" action="{{ route('locationList.destroy',$user->id) }}" method="POST" style="display: none;">
 
                                                     @csrf
+                                                    @method('DELETE')
 
                                                 </form>
-                                                @endif
                                                 @endif
                                     </td>
                                 </tr>
@@ -230,12 +229,12 @@ Vacancy category| {{ $ins_name }}
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel">Add Vacancy category Information</h5>
+                <h5 class="modal-title" id="myLargeModalLabel">Add Location List Information</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
             <div class="modal-body">
-                <form class="custom-validation" action="{{ route('admin.job_category.store') }}" method="post" enctype="multipart/form-data">
+                <form class="custom-validation" action="{{ route('locationList.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                        <div class="row">
 

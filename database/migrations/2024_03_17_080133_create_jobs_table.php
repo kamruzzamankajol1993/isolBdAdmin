@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->string('job_category_id',50)->nullable();
-            $table->string('job_department_id',50)->nullable();
-            $table->string('job_title_id',50)->nullable();
+            $table->string('job_category_id')->nullable();
+            $table->string('job_department_id')->nullable();
+            $table->string('job_title_id')->nullable();
+            $table->string('job_title_slug')->nullable();
             $table->string('agency_name')->nullable();
             $table->string('salary',100)->nullable();
             $table->string('job_area')->nullable();

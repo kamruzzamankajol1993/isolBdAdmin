@@ -20,6 +20,7 @@ class FouthController extends Controller
 
         $user->title = $request->title;
         $user->des = $request->des;
+        $user->status = $request->status;
         if ($request->hasfile('image')) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
@@ -28,7 +29,7 @@ class FouthController extends Controller
             $user->image = 'public/uploads/' . $filename;
         }
         $user->save();
-        return redirect()->route('admin.fourth_row_info')->with('success','Created successfully!');
+        return redirect()->back()->with('success','Created successfully!');
 
     }
 
@@ -39,6 +40,7 @@ class FouthController extends Controller
 
         $user->title = $request->title;
         $user->des = $request->des;
+        $user->status = $request->status;
         if ($request->hasfile('image')) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
@@ -47,7 +49,7 @@ class FouthController extends Controller
             $user->image = 'public/uploads/' . $filename;
         }
         $user->save();
-        return redirect()->route('admin.fourth_row_info')->with('success','Created successfully!');
+        return redirect()->back()->with('success','Updated successfully!');
 
     }
 

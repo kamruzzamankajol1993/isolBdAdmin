@@ -16,25 +16,11 @@ class SevenrowController extends Controller
     public function store(Request $request){
 
                
-        $array_data = $request->all();
+        $user = new Seventhrow();
 
-
-        $lesson_detail = $array_data['des'];
-
-
-        foreach ($lesson_detail as $key => $lesson_detail) {
-
-              $table_list_data = new Seventhrow();
-              $table_list_data->title	=$request->title;
-              $table_list_data->des	=$array_data['des'][$key];
-              $file=$array_data['image'][$key];
-            $name=$file->getClientOriginalName();
-            $file->move('public/uploads/', $name);
-            $table_list_data->image='public/uploads/'.$name;
-              $table_list_data->save();
-
-
-        }
+        $user->title = $request->title;
+        $user->image = $request->image;
+        $user->save();
 
 
         return redirect()->back()->with('success','Created successfully!');
@@ -47,14 +33,7 @@ class SevenrowController extends Controller
         $user = Seventhrow::find($request->id);
 
         $user->title = $request->title;
-        $user->des = $request->des;
-        if ($request->hasfile('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extension;
-            $file->move('public/uploads/', $filename);
-            $user->image = 'public/uploads/' . $filename;
-        }
+        $user->image = $request->image;
         $user->save();
         return redirect()->route('admin.seventh_row_info')->with('success','Created successfully!');
 

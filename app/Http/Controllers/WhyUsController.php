@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Whyusmission;
 use App\Models\Whyusvision;
 use App\Models\Whyusvalues;
+use App\Models\Mission;
 class WhyUsController extends Controller
 {
     public function index(){
@@ -13,8 +14,11 @@ class WhyUsController extends Controller
         $why_us_mission_list = Whyusmission::latest()->get();
         $why_us_vision_list = Whyusvision::latest()->get();
         $why_us_values_list = Whyusvalues::latest()->get();
-
-        return View('backend.why_us_mission.index',['why_us_mission_list'=>$why_us_mission_list]);
+        $mission_list = Mission::where('status',0)->latest()->get();
+        return View('backend.why_us_mission.index',[
+            'why_us_mission_list'=>$why_us_mission_list,
+            'mission_list'=>$mission_list
+        ]);
     }
 
     public function why_us_vision_index(){
@@ -22,8 +26,8 @@ class WhyUsController extends Controller
         $why_us_mission_list = Whyusmission::latest()->get();
         $why_us_vision_list = Whyusvision::latest()->get();
         $why_us_values_list = Whyusvalues::latest()->get();
-
-        return View('backend.why_us_vision.index',['why_us_vision_list'=>$why_us_vision_list]);
+        $mission_list = Mission::where('status',1)->latest()->get();
+        return View('backend.why_us_vision.index',['why_us_vision_list'=>$why_us_vision_list, 'mission_list'=>$mission_list]);
     }
 
     public function why_us_value_index(){
@@ -32,7 +36,11 @@ class WhyUsController extends Controller
         $why_us_vision_list = Whyusvision::latest()->get();
         $why_us_values_list = Whyusvalues::latest()->get();
 
-        return View('backend.why_us_value.index',['why_us_values_list'=>$why_us_values_list]);
+       // dd($why_us_values_list);
+
+        $mission_list = Mission::where('status',2)->latest()->get();
+
+        return View('backend.why_us_value.index',['why_us_values_list'=>$why_us_values_list,'mission_list'=>$mission_list]);
     }
 
 

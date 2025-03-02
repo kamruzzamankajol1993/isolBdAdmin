@@ -1,7 +1,7 @@
 @extends('backend.master.master')
 
 @section('title')
-Fifth  Row Big Title & Other | {{ $ins_name }}
+What We Do | {{ $ins_name }}
 @endsection
 
 
@@ -15,7 +15,7 @@ Fifth  Row Big Title & Other | {{ $ins_name }}
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0">Fifth  Row Big Title & Other </h4>
+            <h4 class="mb-0">What We Do </h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
@@ -32,9 +32,9 @@ Fifth  Row Big Title & Other | {{ $ins_name }}
                             <div class="float-right d-md-block">
                                 <div class="dropdown">
                                 @if (Auth::guard('admin')->user()->can('fifth_row_add'))
-<button class="btn btn-primary dropdown-toggle waves-effect  btn-sm waves-light" type="button" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg">
+{{-- <button class="btn btn-primary dropdown-toggle waves-effect  btn-sm waves-light" type="button" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg">
                                         <i class="far fa-calendar-plus  mr-2"></i> Add Other Information
-                                    </button>
+                                    </button> --}}
 @endif
                                 </div>
                             </div>
@@ -44,7 +44,7 @@ Fifth  Row Big Title & Other | {{ $ins_name }}
                     @include('flash_message')
                     <div class="row mt-2">
                         <!--start-->
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="card">
                                 <div class="card-body">
 
@@ -57,9 +57,17 @@ Fifth  Row Big Title & Other | {{ $ins_name }}
     @csrf
     <input type="hidden" value="{{ $all_back_video->id }}" name="id" />
        <div class="row">
+
+        <div class="form-group col-md-12 col-sm-12">
+            <label for="name">Image</label>
+            <input type="file" class="form-control form-control-sm"  id="name" name="image" placeholder="Enter Title">
+            <img src="{{ asset('/') }}{{ $all_back_video->image }}" style="height:20px;"/>
+
+        </div>
+        <small style="color:red;">Image Size: 1000px*600px</small>
         <div class="form-group col-md-12 col-sm-12">
             <label for="name">Big Description</label>
-            <textarea  class="form-control form-control-sm" id="classic-editor" name="des" placeholder="Enter Description">{!! $all_back_video->des !!}</textarea>
+            <textarea  class="form-control form-control-sm"  name="des" placeholder="Enter Description">{!! $all_back_video->des !!}</textarea>
 
         </div>
 
@@ -75,9 +83,18 @@ Fifth  Row Big Title & Other | {{ $ins_name }}
                                     <form class="custom-validation" action="{{ route('admin.fifth_row_info_big.store') }}" method="post" enctype="multipart/form-data">
                                         @csrf
                                            <div class="row">
+
+                                            <div class="form-group col-md-12 col-sm-12">
+                                                <label for="name">Image</label>
+                                                <input type="file" class="form-control form-control-sm"  id="name" name="image" placeholder="Enter Title">
+                                             
+                                    
+                                            </div>
+                                            <small style="color:red;">Image Size: 1000px*600px</small>
+
                                             <div class="form-group col-md-12 col-sm-12">
                                                 <label for="name">Big Description</label>
-                                                <textarea  class="form-control form-control-sm" id="classic-editor" name="des" placeholder="Enter Description"></textarea>
+                                                <textarea  class="form-control form-control-sm"  name="des" placeholder="Enter Description"></textarea>
 
                                             </div>
 
@@ -94,11 +111,29 @@ Fifth  Row Big Title & Other | {{ $ins_name }}
                             </div>
                         </div> <!-- end col -->
                         <!--end--->
-                        <div class="col-6">
+                        <div class="col-8">
                             <div class="card">
                                 <div class="card-body">
 
-                                    <div class="table-responsive">
+                                    <div class="row">
+
+
+                                        <div class="col-sm-6">
+                                            <div class="float-right d-md-block">
+                                                <div class="dropdown">
+                                                @if (Auth::guard('admin')->user()->can('second_row_add'))
+                
+                <button class="btn btn-primary dropdown-toggle waves-effect  btn-sm waves-light" type="button" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg">
+                                                        <i class="far fa-calendar-plus  mr-2"></i> Add
+                                                                                      </button>
+                                                                                      @endif
+                
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="table-responsive mt-4">
                                         <table id="" class="table table-bordered dt-responsive nowrap"
                                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
@@ -180,12 +215,12 @@ Fifth  Row Big Title & Other | {{ $ins_name }}
 
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="name">Description</label>
-                                <textarea  class="form-control form-control-sm" id="classic-editor" name="des" placeholder="Enter Description">{!! $user->des !!}</textarea>
+                                <textarea  class="form-control form-control-sm"  name="des" placeholder="Enter Description">{!! $user->des !!}</textarea>
 
                             </div>
 
 
-                            <div class="form-group col-md-6 col-sm-12">
+                            <div class="form-group col-md-12 col-sm-12">
                                 <label for="name">Title</label>
                                 <input type="text" class="form-control form-control-sm" value="{{ $user->title }}" id="name" name="title" placeholder="Enter Title">
 
@@ -277,7 +312,7 @@ Fifth  Row Big Title & Other | {{ $ins_name }}
                        <div class="row">
                         <div class="form-group col-md-12 col-sm-12">
                             <label for="name">Description</label>
-                            <textarea  class="form-control form-control-sm" id="classic-editor" name="des" placeholder="Enter Description"></textarea>
+                            <textarea  class="form-control form-control-sm"  name="des" placeholder="Enter Description"></textarea>
 
                         </div>
 
@@ -301,7 +336,38 @@ Fifth  Row Big Title & Other | {{ $ins_name }}
 
 @section('script')
 
-
+<script type="text/javascript">
+    function deleteTag(id) {
+        swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                event.preventDefault();
+                document.getElementById('delete-form-'+id).submit();
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === swal.DismissReason.cancel
+            ) {
+                swal(
+                    'Cancelled',
+                    'Your data is safe :)',
+                    'error'
+                )
+            }
+        })
+    }
+</script>
 
 
 @endsection

@@ -24,7 +24,7 @@ class DashboardController extends Controller
 if (is_null($this->user) || !$this->user->can('dashboard.view')) {
             abort(403, 'Sorry !! You are Unauthorized to view dashboard !');
         }
-        $totalEvent = DB::table('event')->count();
+        $totalEvent = DB::table('events')->count();
         $totalJob = Job::count();
 $partnerWithUsPTotal = JobSeeker::where('status','Pending')->latest()->count();
 $partnerWithUsATotal = JobSeeker::where('status','Accepted')->latest()->count();

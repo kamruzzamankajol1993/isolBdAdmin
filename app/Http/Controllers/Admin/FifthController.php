@@ -21,7 +21,13 @@ class FifthController extends Controller
     public function fifth_row_info_big_store(Request $request){
 
         $user = new BigFive();
-
+        if ($request->hasfile('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('public/uploads/', $filename);
+            $user->image = 'public/uploads/' . $filename;
+        }
         //$user->title = $request->title;
         $user->des = $request->des;
 
@@ -34,7 +40,13 @@ class FifthController extends Controller
     public function fifth_row_info_big_update(Request $request){
 
         $user = BigFive::find($request->id);
-
+        if ($request->hasfile('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('public/uploads/', $filename);
+            $user->image = 'public/uploads/' . $filename;
+        }
        // $user->title = $request->title;
         $user->des = $request->des;
 

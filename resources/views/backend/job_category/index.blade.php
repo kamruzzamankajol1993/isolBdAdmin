@@ -63,7 +63,7 @@ Vacancy category| {{ $ins_name }}
                                         <thead>
                                             <tr>
                                             <th>SL</th>
-
+                                            <th>Image</th>
 <th>Name</th>
                                             {{-- <th>Description</th> --}}
                                           <th>Action</th>
@@ -84,7 +84,16 @@ Vacancy category| {{ $ins_name }}
 
                                 </td>
 
+                                <td>
 
+                                    @if(empty($user->image))
+
+                                    @else
+                                    
+                                    <img src="{{ asset('/') }}{{ $user->image }}" style="height:30px;"/>
+                                    @endif
+                                
+                                </td>
                                 <td>{{$user->name }}</td>
 
 {{-- <td>{!! $user->des !!}</td> --}}
@@ -132,7 +141,12 @@ Vacancy category| {{ $ins_name }}
 
 
 
-
+                                                    <div class="form-group col-md-12 col-sm-12">
+                                                        <label for="name">Image</label>
+                                                        <input type="file" class="form-control form-control-sm" id="name" name="image" placeholder="Enter Address">
+                                                        <img src="{{ asset('/') }}{{ $user->image }}" style="height:20px;"/>
+                                                       </div>
+                                                       <small style="color:red;">Image Size: 257px*207px</small>
 
 
 
@@ -249,7 +263,12 @@ Vacancy category| {{ $ins_name }}
 
 
 
-
+                                        <div class="form-group col-md-12 col-sm-12">
+                                            <label for="name">Image</label>
+                                            <input type="file" class="form-control form-control-sm" id="name" name="image" placeholder="Enter Address">
+                      
+                                           </div>
+                                           <small style="color:red;">Image Size: 257px*207px</small>
 
 
 

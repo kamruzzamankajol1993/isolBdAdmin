@@ -1,7 +1,7 @@
 @extends('backend.master.master')
 
 @section('title')
-Special News | {{ $ins_name }}
+Important Notes | {{ $ins_name }}
 @endsection
 
 
@@ -15,7 +15,7 @@ Special News | {{ $ins_name }}
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0">Special News</h4>
+            <h4 class="mb-0">Important Notes</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
@@ -104,7 +104,7 @@ Special News | {{ $ins_name }}
                                             <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Special News Information</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Update Important Notes Information</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
@@ -144,7 +144,7 @@ Special News | {{ $ins_name }}
                             </div> --}}
 
 
-                            <div class="form-group col-md-6 col-sm-12">
+                            <div class="form-group col-md-12 col-sm-12">
                                 <label for="name">Title</label>
                                 <input type="text" class="form-control form-control-sm" value="{{ $user->title }}" id="name" name="title" placeholder="Enter Title">
 
@@ -227,7 +227,7 @@ Special News | {{ $ins_name }}
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel">Add Special News Information</h5>
+                <h5 class="modal-title" id="myLargeModalLabel">Add Important Notes Information</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -257,7 +257,7 @@ Special News | {{ $ins_name }}
                 </div> --}}
 
 
-                <div class="form-group col-md-6 col-sm-12">
+                <div class="form-group col-md-12 col-sm-12">
                     <label for="name">Title</label>
                     <input type="text" class="form-control form-control-sm" id="name" name="title" placeholder="Enter Title">
 

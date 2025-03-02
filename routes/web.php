@@ -289,6 +289,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('fifth_row_info_big/update', [FifthController::class, 'fifth_row_info_big_update'])->name('admin.fifth_row_info_big.update');
     Route::post('fifth_row_info_big/delete/{id}', [FifthController::class, 'fifth_row_info_big_delete'])->name('admin.fifth_row_info_big.delete');
 
+    Route::post('wellComeOnBoard/store', [SixrowController::class, 'wellComeOnBoardStore'])->name('wellComeOnBoardStore');
+    Route::post('wellComeOnBoard/update', [SixrowController::class, 'wellComeOnBoardUpdate'])->name('wellComeOnBoardUpdate');
 
     Route::get('sixth_row_info', [SixrowController::class, 'index'])->name('admin.sixth_row_info');
     Route::post('sixth_row_info/store', [SixrowController::class, 'store'])->name('admin.sixth_row_info.store');

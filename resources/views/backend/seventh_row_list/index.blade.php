@@ -1,7 +1,7 @@
 @extends('backend.master.master')
 
 @section('title')
-Seventh Row List| {{ $ins_name }}
+Crew Benifit List| {{ $ins_name }}
 @endsection
 
 
@@ -15,7 +15,7 @@ Seventh Row List| {{ $ins_name }}
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0">Seventh Row List</h4>
+            <h4 class="mb-0">Crew Benifit List</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
@@ -59,7 +59,7 @@ Seventh Row List| {{ $ins_name }}
                                             <th>SL</th>
                                             <th>Image</th>
 <th>title</th>
-                                            <th>Description</th>
+                        
                                           <th>Action</th>
                                             </tr>
                                         </thead>
@@ -77,11 +77,11 @@ Seventh Row List| {{ $ins_name }}
 
 
                                 </td>
-                                <td><img src="{{ asset('/') }}{{ $user->image }}" style="height:30px;"/></td>
+                                <td><i style="font-size:20px;" class="{{ $user->image }}"></i></td>
 
                                 <td>{{$user->title }}</td>
 
-<td>{!! $user->des !!}</td>
+
 
 
 
@@ -98,7 +98,7 @@ Seventh Row List| {{ $ins_name }}
                                             <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Seventh row Information</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Update Crew Benifit Information</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
@@ -116,37 +116,31 @@ Seventh Row List| {{ $ins_name }}
                         <input type="hidden" class="form-control form-control-sm" value="{{ $user->id }}" name="id" placeholder="Enter Name">
 
 
-
-
-
-
                                                         </div>
                                                 <div class="row">
 
 
 
-
-
-
-
                             <div class="form-group col-md-12 col-sm-12">
-                                <label for="name">Image</label>
-                                <input type="file" class="form-control form-control-sm" id="name" name="image" placeholder="Enter Address">
-                                <img src="{{ asset('/') }}{{ $user->image }}" style="height:20px;"/>
-                            </div>
-
-                            <div class="form-group col-md-12 col-sm-12">
-                                <label for="name">Description</label>
-                                <textarea  class="form-control form-control-sm" id="classic-editor" name="des" placeholder="Enter Description">{!! $user->des !!}</textarea>
-
-                            </div>
-
-
-                            <div class="form-group col-md-6 col-sm-12">
                                 <label for="name">Title</label>
                                 <input type="text" class="form-control form-control-sm" value="{{ $user->title }}" id="name" name="title" placeholder="Enter Title">
 
                             </div>
+
+                            
+
+
+
+
+
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label for="name">Icon Name</label>
+                                <input type="text" class="form-control form-control-sm" value="{{ $user->image }}" id="name" name="image" placeholder="Enter Icon Name">
+                             
+                            </div>
+
+                      
+
 
 
 
@@ -225,7 +219,7 @@ Seventh Row List| {{ $ins_name }}
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel">Add Seventh Row Information</h5>
+                <h5 class="modal-title" id="myLargeModalLabel">Add Crew Benifit Information</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -247,28 +241,14 @@ Seventh Row List| {{ $ins_name }}
                         
                                         </div>
 
-
-                                        <div class="form-group col-md-12 col-sm-12 mt-4">
-
-                                            <table class="table table-bordered" id="dynamicAddRemove">
-                                                <tr>
-                                                    <th>Image</th>
-                                                    <th>Description</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <input type="file" id="first0" class="form-control form-control-sm" id="name" name="image[]" placeholder="Enter Address" required>
-                                                        
-                                                    </td>
-                                                    <td>
-                                                        <textarea  class="form-control form-control-sm" id="second0" name="des[]" placeholder="Enter Description" required></textarea>
-                                                        
-                                                    </td>
-                                                    <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary"><i class="far fa-plus-square"></i></button></td>
-                                                </tr>
-                                            </table>
+                                        <div class="form-group col-md-12 col-sm-12">
+                                            <label for="name">Icon Name</label>
+                                            <input type="text" class="form-control form-control-sm" id="name" name="image" placeholder="Enter Icon Name">
+                        
                                         </div>
+
+
+                             
                  
 
 

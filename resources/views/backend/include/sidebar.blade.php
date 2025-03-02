@@ -59,29 +59,44 @@
         <li class="{{ Route::is('admin.video_background')  ? 'active' : '' }}"><a href="{{ route('admin.video_background') }}"> <span>Video Background</span> </a></li>
 @endif
 @if ($usr->can('second_row_add') || $usr->can('second_row_view') ||  $usr->can('second_row_update') ||  $usr->can('second_row_delete'))
-        <li class="{{ Route::is('admin.second_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.second_row_info') }}"> <span>Second Row</span> </a></li>
+        <li class="{{ Route::is('admin.second_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.second_row_info') }}"> <span>Slider</span> </a></li>
+@endif
+@if ($usr->can('job_category_add') || $usr->can('job_category_view') || $usr->can('job_category_update') || $usr->can('job_category_delete'))
+<li class="{{ Route::is('admin.job_category') ? 'active' : '' }}">
+    <a href="{{ route('admin.job_category') }}">
+        
+        <span>Job Category</span>
+    </a>
+</li>
 @endif
 @if ($usr->can('special_news_add') || $usr->can('special_news_view') ||  $usr->can('special_news_update') ||  $usr->can('special_news_delete'))
-        <li class="{{ Route::is('admin.special_news_info')  ? 'active' : '' }}"><a href="{{ route('admin.special_news_info') }}"> <span>Special News</span> </a></li>
+        <li class="{{ Route::is('admin.special_news_info')  ? 'active' : '' }}"><a href="{{ route('admin.special_news_info') }}"> <span>Important Notes</span> </a></li>
 @endif
 @if ($usr->can('third_row_add') || $usr->can('third_row_view') ||  $usr->can('third_row_update') ||  $usr->can('third_row_delete'))
-        <li class="{{ Route::is('admin.third_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.third_row_info') }}"> <span>Third Row</span> </a></li>
+        <li class="{{ Route::is('admin.third_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.third_row_info') }}"> <span>Why Join us</span> </a></li>
 @endif
-@if ($usr->can('fourth_row_add') || $usr->can('fourth_row_view') ||  $usr->can('fourth_row_update') ||  $usr->can('fourth_row_delete'))
-        <li class="{{ Route::is('admin.fourth_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.fourth_row_info') }}"> <span>Fouth Row</span> </a></li>
-        @endif
+@if ($usr->can('why_us_mission'))
+<li class="{{ Route::is('admin.why_us_mission')  ? 'active' : '' }}"><a href="{{ route('admin.why_us_mission') }}"> <span>Mission</span> </a></li>
+@endif
+@if ($usr->can('why_us_vision'))
+<li class="{{ Route::is('admin.why_us_vision')  ? 'active' : '' }}"><a href="{{ route('admin.why_us_vision') }}"> <span>Vision</span> </a></li>
+@endif
+@if ($usr->can('why_us_values'))
+<li class="{{ Route::is('admin.why_us_value')  ? 'active' : '' }}"><a href="{{ route('admin.why_us_value') }}"> <span>Values</span> </a></li>
+@endif
+
         @if ($usr->can('fifth_row_add') || $usr->can('fifth_row_view') ||  $usr->can('fifth_row_update') ||  $usr->can('fifth_row_delete'))
 
-        <li class="{{ Route::is('admin.fifth_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.fifth_row_info') }}"> <span>Fifth Row</span> </a></li>
+        <li class="{{ Route::is('admin.fifth_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.fifth_row_info') }}"> <span>What We Do</span> </a></li>
     @endif
     @if ($usr->can('sixth_row_add') || $usr->can('sixth_row_view') ||  $usr->can('sixth_row_update') ||  $usr->can('sixth_row_delete'))
-        <li class="{{ Route::is('admin.sixth_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.sixth_row_info') }}"> <span>Sixth Row</span> </a></li>
+        <li class="{{ Route::is('admin.sixth_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.sixth_row_info') }}"> <span>Welcome On Board</span> </a></li>
         @endif
         @if ($usr->can('seventh_row_add') || $usr->can('seventh_row_view') ||  $usr->can('seventh_row_update') ||  $usr->can('seventh_row_delete'))
-        <li class="{{ Route::is('admin.seventh_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.seventh_row_info') }}"> <span>Seventh Row</span> </a></li>
+        <li class="{{ Route::is('admin.seventh_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.seventh_row_info') }}"> <span>Crew Benifit</span> </a></li>
         @endif
         @if ($usr->can('eight_row_add') || $usr->can('eight_row_view') ||  $usr->can('eight_row_update') ||  $usr->can('eight_row_delete'))
-        <li class="{{ Route::is('admin.eight_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.eight_row_info') }}"> <span>Eight Row</span> </a></li>
+        <li class="{{ Route::is('admin.eight_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.eight_row_info') }}"> <span>We Specialise In</span> </a></li>
         @endif
         @if ($usr->can('ninth_row_add') || $usr->can('ninth_row_view') ||  $usr->can('ninth_row_update') ||  $usr->can('ninth_row_delete'))
         <li class="{{ Route::is('admin.ninth_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.ninth_row_info') }}"> <span>Ninth Row</span> </a></li>
@@ -101,28 +116,7 @@
     </a>
 </li>
 @endif
-<li class="menu-title">WHY US</li>
 
-<li>
-    <a href="javascript: void(0);" class="has-arrow waves-effect">
-        <i class="uil-label"></i>
-        <span>Why Us</span>
-    </a>
-    <ul class="sub-menu" aria-expanded="false">
-
-        @if ($usr->can('why_us_mission'))
-        <li class="{{ Route::is('admin.why_us_mission')  ? 'active' : '' }}"><a href="{{ route('admin.why_us_mission') }}"> <span>Mission</span> </a></li>
-@endif
-@if ($usr->can('why_us_vision'))
-        <li class="{{ Route::is('admin.why_us_vision')  ? 'active' : '' }}"><a href="{{ route('admin.why_us_vision') }}"> <span>Vision</span> </a></li>
-@endif
-@if ($usr->can('why_us_values'))
-        <li class="{{ Route::is('admin.why_us_value')  ? 'active' : '' }}"><a href="{{ route('admin.why_us_value') }}"> <span>Values</span> </a></li>
-@endif
-
-
-    </ul>
-</li>
 
 
 <li class="menu-title">ABOUT ISOL</li>
@@ -176,14 +170,7 @@
     </a>
     <ul class="sub-menu" aria-expanded="false">
 
-      @if ($usr->can('job_category_add') || $usr->can('job_category_view') || $usr->can('job_category_update') || $usr->can('job_category_delete'))
-<li class="{{ Route::is('admin.job_category') ? 'active' : '' }}">
-    <a href="{{ route('admin.job_category') }}">
-        
-        <span>Vacancy Category</span>
-    </a>
-</li>
-@endif
+   
 
 
 @if ($usr->can('job_department_add') || $usr->can('job_department_view') || $usr->can('job_department_update') || $usr->can('job_department_delete'))

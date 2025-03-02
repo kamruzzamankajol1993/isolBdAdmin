@@ -20,7 +20,13 @@ class ThirdrowController extends Controller
 
         $user->title = $request->title;
         $user->des = $request->des;
-
+        if ($request->hasfile('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('public/uploads/', $filename);
+            $user->image = 'public/uploads/' . $filename;
+        }
         $user->save();
         return redirect()->route('admin.third_row_info')->with('success','Created successfully!');
 
@@ -33,7 +39,13 @@ class ThirdrowController extends Controller
 
         $user->title = $request->title;
         $user->des = $request->des;
-
+        if ($request->hasfile('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('public/uploads/', $filename);
+            $user->image = 'public/uploads/' . $filename;
+        }
         $user->save();
         return redirect()->route('admin.third_row_info')->with('success','Created successfully!');
 

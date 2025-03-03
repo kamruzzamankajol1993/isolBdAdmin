@@ -98,24 +98,32 @@
         @if ($usr->can('eight_row_add') || $usr->can('eight_row_view') ||  $usr->can('eight_row_update') ||  $usr->can('eight_row_delete'))
         <li class="{{ Route::is('admin.eight_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.eight_row_info') }}"> <span>We Specialise In</span> </a></li>
         @endif
-        @if ($usr->can('ninth_row_add') || $usr->can('ninth_row_view') ||  $usr->can('ninth_row_update') ||  $usr->can('ninth_row_delete'))
-        <li class="{{ Route::is('admin.ninth_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.ninth_row_info') }}"> <span>Ninth Row</span> </a></li>
-    @endif
-    @if ($usr->can('tenth_row_add') || $usr->can('tenth_row_view') ||  $usr->can('tenth_row_update') ||  $usr->can('tenth_row_delete'))
-        <li class="{{ Route::is('admin.tenth_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.tenth_row_info') }}"> <span>Tenth Row</span> </a></li>
-@endif
-    </ul>
-</li>
-<li class="menu-title">HOW IT WORK</li>
-
-@if ($usr->can('how_it_work_view') || $usr->can('how_it_work_update') || $usr->can('how_it_work_delete'))
+        @if ($usr->can('how_it_work_view') || $usr->can('how_it_work_update') || $usr->can('how_it_work_delete'))
 <li class="{{ Route::is('admin.how_it_work') ? 'active' : '' }}">
     <a href="{{ route('admin.how_it_work') }}">
-        <i class="uil-label"></i>
-        <span>How It Work</span>
+     
+        <span>Hiring Process</span>
     </a>
 </li>
 @endif
+
+@if ($usr->can('tenth_row_add') || $usr->can('tenth_row_view') ||  $usr->can('tenth_row_update') ||  $usr->can('tenth_row_delete'))
+        <li class="{{ Route::is('admin.tenth_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.tenth_row_info') }}"> <span>Urgent Vacancy</span> </a></li>
+@endif
+
+        @if ($usr->can('ninth_row_add') || $usr->can('ninth_row_view') ||  $usr->can('ninth_row_update') ||  $usr->can('ninth_row_delete'))
+        <li class="{{ Route::is('admin.ninth_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.ninth_row_info') }}"> <span>Review List</span> </a></li>
+    @endif
+
+    @if ($usr->can('ninth_row_add') || $usr->can('ninth_row_view') ||  $usr->can('ninth_row_update') ||  $usr->can('ninth_row_delete'))
+        <li class="{{ Route::is('admin.subscriptionList')  ? 'active' : '' }}"><a href="{{ route('admin.subscriptionList') }}"> <span>Subscription List</span> </a></li>
+    @endif
+    
+    </ul>
+</li>
+
+
+
 
 
 

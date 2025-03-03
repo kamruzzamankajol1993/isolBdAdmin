@@ -1,7 +1,7 @@
 @extends('backend.master.master')
 
 @section('title')
-Tenth Row List| {{ $ins_name }}
+Urgent Vacancy List| {{ $ins_name }}
 @endsection
 
 
@@ -15,7 +15,7 @@ Tenth Row List| {{ $ins_name }}
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0">Tenth Row List</h4>
+            <h4 class="mb-0">Urgent Vacancy List</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
@@ -78,7 +78,7 @@ Tenth Row List| {{ $ins_name }}
 
 
                                 </td>
-                                <td><img src="{{ asset('/') }}{{ $user->image }}" style="height:30px;"/></td>
+                                <td><img src="{{ asset('/') }}{{ $user->image }}" style="height:120px;"/></td>
 
 
 
@@ -99,7 +99,7 @@ Tenth Row List| {{ $ins_name }}
                                             <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Tenth Row Information</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Update Urgent Vacancy Information</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
@@ -130,13 +130,13 @@ Tenth Row List| {{ $ins_name }}
 
 
 
-                            <div class="form-group col-md-6 col-sm-12">
+                            <div class="form-group col-md-12 col-sm-12">
                                 <label for="name">Image</label>
                                 <input type="file" class="form-control form-control-sm" id="name" name="image" placeholder="Enter Address">
-                                <img src="{{ asset('/') }}{{ $user->image }}" style="height:20px;"/>
+                                <img src="{{ asset('/') }}{{ $user->image }}" style="height:120px;"/>
                             </div>
 
-
+                            <small style="color:red;">Image Size: 845px*968px</small>
 
 
 
@@ -216,7 +216,7 @@ Tenth Row List| {{ $ins_name }}
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel">Add Tenth Row Information</h5>
+                <h5 class="modal-title" id="myLargeModalLabel">Add Urgent Vacancy Information</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -237,12 +237,12 @@ Tenth Row List| {{ $ins_name }}
 
 
 
-                  <div class="form-group col-md-6 col-sm-12">
+                  <div class="form-group col-md-12 col-sm-12">
                       <label for="name">Image</label>
                       <input type="file" class="form-control form-control-sm" id="name" name="image" placeholder="Enter Address">
 
                   </div>
-
+                  <small style="color:red;">Image Size: 845px*968px</small>
 
 
 

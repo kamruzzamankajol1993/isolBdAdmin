@@ -14,6 +14,15 @@ class NinthrowController extends Controller
         return view('backend.ninth_row_list.index',['employee_list'=>$employee_list,'employer_list'=>$employer_list]);
     }
 
+    public function subscriptionList(){
+
+
+        $employee_list = Employeereview::latest()->get();
+        $employer_list = Employerreview::latest()->get();
+        return view('backend.ninth_row_list.subscriptionList',['employee_list'=>$employee_list,'employer_list'=>$employer_list]);
+
+    }
+
     public function store(Request $request){
         $user = new Employeereview();
 

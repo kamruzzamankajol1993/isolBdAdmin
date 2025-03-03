@@ -18,8 +18,8 @@ class HowItWorkController extends Controller
     public function store(Request $request){
 
         $user = new HowItWork();
-
-        //$user->title = $request->title;
+        $user->type = $request->type;
+        $user->title = $request->title;
         $user->des = $request->des;
         if ($request->hasfile('image')) {
             $file = $request->file('image');
@@ -37,8 +37,8 @@ class HowItWorkController extends Controller
     public function update(Request $request){
 
         $user = HowItWork::find($request->id);
-
-        //$user->title = $request->title;
+        $user->type = $request->type;
+        $user->title = $request->title;
         $user->des = $request->des;
         if ($request->hasfile('image')) {
             $file = $request->file('image');
@@ -50,5 +50,17 @@ class HowItWorkController extends Controller
         $user->save();
         return redirect()->route('admin.how_it_work')->with('success','Created successfully!');
 
+    }
+
+    public function delete($id)
+    {
+
+        $admins = HowItWork::find($id);
+        if (!is_null($admins)) {
+            $admins->delete();
+        }
+
+
+        return back()->with('error','Deleted successfully!');
     }
 }

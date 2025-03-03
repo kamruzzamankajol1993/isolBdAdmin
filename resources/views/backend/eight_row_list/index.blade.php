@@ -1,7 +1,7 @@
 @extends('backend.master.master')
 
 @section('title')
-Urgent Vacancy List| {{ $ins_name }}
+We Specialise In List| {{ $ins_name }}
 @endsection
 
 
@@ -15,7 +15,7 @@ Urgent Vacancy List| {{ $ins_name }}
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-flex align-items-center justify-content-between">
-            <h4 class="mb-0">Urgent Vacancy  List</h4>
+            <h4 class="mb-0">We Specialise In  List</h4>
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
@@ -30,7 +30,7 @@ Urgent Vacancy List| {{ $ins_name }}
 <div class="row">
 
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="float-right d-md-block">
                                 <div class="dropdown">
                                 @if (Auth::guard('admin')->user()->can('eight_row_add'))
@@ -43,12 +43,9 @@ Urgent Vacancy List| {{ $ins_name }}
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- end page title -->
-
-                    <div class="row mt-2">
+                  
                         @include('flash_message')
-                        <div class="col-12">
+                        <div class="col-12 mt-3">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -98,7 +95,7 @@ Urgent Vacancy List| {{ $ins_name }}
                                             <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Urgent Vacancy  Information</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Update We Specialise In  Information</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
@@ -134,15 +131,15 @@ Urgent Vacancy List| {{ $ins_name }}
                                 <input type="file" class="form-control form-control-sm" id="name" name="image" placeholder="Enter Address">
                                 <img src="{{ asset('/') }}{{ $user->image }}" style="height:20px;"/>
                             </div>
-
+                            <small style="color:red;">Image Size: 417px*376px</small>
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="name">Description</label>
-                                <textarea  class="form-control form-control-sm" id="classic-editor" name="des" placeholder="Enter Description">{!! $user->des !!}</textarea>
+                                <textarea  class="form-control form-control-sm"  name="des" placeholder="Enter Description">{!! $user->des !!}</textarea>
 
                             </div>
 
 
-                            <div class="form-group col-md-6 col-sm-12">
+                            <div class="form-group col-md-12 col-sm-12">
                                 <label for="name">Title</label>
                                 <input type="text" class="form-control form-control-sm" value="{{ $user->title }}" id="name" name="title" placeholder="Enter Title">
 
@@ -209,6 +206,75 @@ Urgent Vacancy List| {{ $ins_name }}
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-12">
+
+                            <div class="card">
+                                <div class="card-body">
+    
+                                    @if(count($specialPartTwo) == 1)
+    
+                                    @foreach($specialPartTwo as $all_back_video)
+    
+    <form class="custom-validation" action="{{ route('specialPartTwoUpdate') }}" method="post" enctype="multipart/form-data">
+    @csrf
+    <input type="hidden" value="{{ $all_back_video->id }}" name="id" />
+       <div class="row">
+    
+      
+        <div class="form-group col-md-12 col-sm-12">
+            <label for="name">Title</label>
+            <input type="text" class="form-control form-control-sm" value="{{ $all_back_video->title }}" id="name" name="title" placeholder="Enter Title">
+    
+        </div>
+    
+        <div class="form-group col-md-12 col-sm-12">
+            <label for="name">Description</label>
+            <textarea class="form-control form-control-sm" name="des" placeholder="Enter Description">
+                {{ $all_back_video->des }}
+            </textarea>
+    
+        </div>
+    
+    
+    
+       </div>
+       <button type="submit" class="btn btn-primary btn-lg mt-3 waves-effect  btn-sm waves-light mr-1">
+        Submit
+     </button>
+    </form>
+    @endforeach
+                                    @else
+                                    <form class="custom-validation" action="{{ route('specialPartTwoStore') }}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                           <div class="row">
+    
+                                         
+    
+                                            <div class="form-group col-md-12 col-sm-12">
+                                                <label for="name">Title</label>
+                                                <input type="text" class="form-control form-control-sm"  id="name" name="title" placeholder="Enter Title">
+                                        
+                                            </div>
+                                        
+                                            <div class="form-group col-md-12 col-sm-12">
+                                                <label for="name">Description</label>
+                                                <textarea class="form-control form-control-sm" name="des" placeholder="Enter Description">
+                                                  
+                                                </textarea>
+                                        
+                                            </div>
+    
+                                           </div>
+                                           <button type="submit" class="btn btn-primary btn-lg mt-3 waves-effect  btn-sm waves-light mr-1">
+                                            Update
+                                         </button>
+                                    </form>
+                                    @endif
+    
+                                </div>
+                            </div>
+    
+                        </div>
                     </div> <!-- end row -->
 
 
@@ -225,7 +291,7 @@ Urgent Vacancy List| {{ $ins_name }}
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel">Add Urgent Vacancy  Information</h5>
+                <h5 class="modal-title" id="myLargeModalLabel">Add We Specialise In  Information</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -251,15 +317,15 @@ Urgent Vacancy List| {{ $ins_name }}
                       <input type="file" class="form-control form-control-sm" id="name" name="image" placeholder="Enter Address">
 
                   </div>
-
+                  <small style="color:red;">Image Size: 417px*376px</small>
                   <div class="form-group col-md-12 col-sm-12">
                     <label for="name">Description</label>
-                    <textarea  class="form-control form-control-sm" id="classic-editor" name="des" placeholder="Enter Description"></textarea>
+                    <textarea  class="form-control form-control-sm"  name="des" placeholder="Enter Description"></textarea>
 
                 </div>
 
 
-                <div class="form-group col-md-6 col-sm-12">
+                <div class="form-group col-md-12 col-sm-12">
                     <label for="name">Title</label>
                     <input type="text" class="form-control form-control-sm" id="name" name="title" placeholder="Enter Title">
 

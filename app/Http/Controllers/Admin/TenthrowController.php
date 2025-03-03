@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tenthrow;
+use Illuminate\Support\Str;
 class TenthrowController extends Controller
 {
     public function index(){
@@ -16,7 +17,7 @@ class TenthrowController extends Controller
     public function store(Request $request){
         $user = new Tenthrow();
 
-
+        $user->jobid = Str::upper(Str::random(5));
         if ($request->hasfile('image')) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();

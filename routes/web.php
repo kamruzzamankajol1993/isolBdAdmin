@@ -302,6 +302,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('seventh_row_info/update', [SevenrowController::class, 'update'])->name('admin.seventh_row_info.update');
     Route::post('seventh_row_info/delete/{id}', [SevenrowController::class, 'delete'])->name('admin.seventh_row_info.delete');
 
+    Route::post('specialPartTwo/store', [EightrowController::class, 'specialPartTwoStore'])->name('specialPartTwoStore');
+    Route::post('specialPartTwo/update', [EightrowController::class, 'specialPartTwoUpdate'])->name('specialPartTwoUpdate');
+
+
     Route::get('eight_row_info', [EightrowController::class, 'index'])->name('admin.eight_row_info');
     Route::post('eight_row_info/store', [EightrowController::class, 'store'])->name('admin.eight_row_info.store');
     Route::post('eight_row_info/update', [EightrowController::class, 'update'])->name('admin.eight_row_info.update');
@@ -312,6 +316,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('ninth_row_info/update', [NinthrowController::class, 'update'])->name('admin.ninth_row_info.update');
     Route::post('ninth_row_info/delete/{id}', [NinthrowController::class, 'delete'])->name('admin.ninth_row_info.delete');
 
+
+    Route::get('subscriptionList', [NinthrowController::class, 'subscriptionList'])->name('admin.subscriptionList');
 
     Route::post('ninth_row_info_second/store', [NinthrowController::class, 'store_second'])->name('admin.ninth_row_info_second.store');
     Route::post('ninth_row_info_second/update', [NinthrowController::class, 'update_second'])->name('admin.ninth_row_info_second.update');

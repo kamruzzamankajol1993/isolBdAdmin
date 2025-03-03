@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\UrgentVacancy;
+use App\Models\SpecialPartTwo;
 class EightrowController extends Controller
 {
     public function index(){
 
+        $specialPartTwo = SpecialPartTwo::latest()->get();
+
         $eight_row_list = UrgentVacancy::latest()->get();
-        return view('backend.eight_row_list.index',['eight_row_list'=>$eight_row_list]);
+        return view('backend.eight_row_list.index',['eight_row_list'=>$eight_row_list,'specialPartTwo'=>$specialPartTwo]);
     }
 
 
@@ -30,6 +33,27 @@ class EightrowController extends Controller
         $user->save();
         return redirect()->route('admin.eight_row_info')->with('success','Created successfully!');
 
+    }
+
+    public function specialPartTwoStore(Request $request){
+
+        $user = new SpecialPartTwo();
+        $user->title = $request->title;
+        $user->des = $request->des;
+        $user->save();
+
+        return redirect()->route('admin.eight_row_info')->with('success','Created successfully!');
+    }
+
+    public function specialPartTwoUpdate(Request $request){
+
+        $user = SpecialPartTwo::find($request->id);
+        $user->title = $request->title;
+        $user->des = $request->des;
+        $user->save();
+        
+        return redirect()->route('admin.eight_row_info')->with('success','Updated successfully!');
+        
     }
 
 

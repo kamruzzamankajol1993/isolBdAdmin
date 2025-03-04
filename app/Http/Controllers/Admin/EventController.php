@@ -27,7 +27,7 @@ class EventController extends Controller
         try{
 
 
-        $job_list = DB::table('event')->latest()->get();
+        $job_list = DB::table('events')->latest()->get();
         $headline_list = Jobtitle::latest()->get();
         $headline_list2 = Jobdepartment::latest()->get();
         $headline_list1 = Jobcategory::latest()->get();
@@ -36,7 +36,7 @@ class EventController extends Controller
         $locationList = Location::latest()->get();
 
     } catch (\Exception $e) {
-        return redirect()->back()->with('error','some thing went wrong ');
+        return  $e;
       }
 
 
@@ -113,7 +113,7 @@ $mainDate = strtotime($request->date);
 $convertDate = date('d-m-Y',$mainDate);
            
 $data = array("title" => $request->title,"time" => $request->time,"speaker" => $request->speaker,"des" => $request->des,"status" => $request->status,"date" => $convertDate,"created_at"=> Carbon\Carbon::now(),"updated_at"=> Carbon\Carbon::now());
-DB::table('event')->insert($data);
+DB::table('events')->insert($data);
 
 
 
@@ -139,7 +139,7 @@ DB::table('event')->insert($data);
 
         try{
 
-        $job_list = DB::table('event')->where('id',$id)->first();
+        $job_list = DB::table('events')->where('id',$id)->first();
         $headline_list = Jobtitle::latest()->get();
         $headline_list2 = Jobdepartment::latest()->get();
         $headline_list1 = Jobcategory::latest()->get();
@@ -169,7 +169,7 @@ DB::table('event')->insert($data);
         try{
 
 
-        $job_list = DB::table('event')->where('id',$id)->first();
+        $job_list = DB::table('events')->where('id',$id)->first();
         $headline_list = Jobtitle::latest()->get();
         $headline_list2 = Jobdepartment::latest()->get();
         $headline_list1 = Jobcategory::latest()->get();
@@ -202,7 +202,7 @@ DB::table('event')->insert($data);
 $convertDate = date('d-m-Y',$mainDate);
            
 $data = array("title" => $request->title,"time" => $request->time,"speaker" => $request->speaker,"des" => $request->des,"status" => $request->status,"date" => $convertDate,"updated_at"=> Carbon\Carbon::now());
-DB::table('event')->where('id',$id)->update($data);
+DB::table('events')->where('id',$id)->update($data);
 
 
             DB::commit();
@@ -224,7 +224,7 @@ DB::table('event')->where('id',$id)->update($data);
      */
     public function destroy($id)
     {
-        $admins = DB::table('event')->where('id',$id)->delete();
+        $admins = DB::table('events')->where('id',$id)->delete();
         
 
 

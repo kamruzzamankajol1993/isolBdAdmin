@@ -58,6 +58,7 @@ Urgent Vacancy List| {{ $ins_name }}
                                         <thead>
                                             <tr>
                                             <th>SL</th>
+                                            <th>link</th>
                                             <th>image</th>
                                           <th>Action</th>
                                             </tr>
@@ -69,17 +70,10 @@ Urgent Vacancy List| {{ $ins_name }}
 
 
                                 <tr>
-                                   <td>
-
-
-                                    {{ $loop->index+1 }}
-
-
-
-
-                                </td>
+                                   <td>{{ $loop->index+1 }}</td>
+                                   <td>{{ $user->title }}</td>
                                 <td><img src="{{ asset('/') }}{{ $user->image }}" style="height:120px;"/></td>
-
+                        
 
 
 
@@ -140,7 +134,11 @@ Urgent Vacancy List| {{ $ins_name }}
 
 
 
-
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label for="name">Link</label>
+                                <input type="text" class="form-control form-control-sm" value="{{ $user->title }}" id="name" name="title" placeholder="Enter Link">
+                        
+                            </div>
 
 
                         </div>
@@ -245,7 +243,11 @@ Urgent Vacancy List| {{ $ins_name }}
                   <small style="color:red;">Image Size: 845px*968px</small>
 
 
-
+                  <div class="form-group col-md-12 col-sm-12">
+                    <label for="name">Link</label>
+                    <input type="text" class="form-control form-control-sm"  name="title" placeholder="Enter Link">
+            
+                </div>
 
 
 

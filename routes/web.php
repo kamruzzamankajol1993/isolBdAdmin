@@ -38,6 +38,7 @@ use App\Http\Controllers\Admin\ComplainController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\MScheduleController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\GlobalRequirmentNewsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -125,7 +126,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'admin'], function () {
+
     
+    Route::resource('globalRequirmentNews',  GlobalRequirmentNewsController::class);
     
     Route::get('job_title', [JobtitleController::class, 'index'])->name('admin.job_title');
     
@@ -133,6 +136,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('eventList',  EventController::class);
     
      Route::controller(EventController::class)->group(function () {
+
+
+        Route::delete('deletePerticipant/{id}','deletePerticipant')->name('deletePerticipant');
 
         Route::delete('deletePerticipant/{id}','deletePerticipant')->name('deletePerticipant');
 

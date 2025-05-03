@@ -39,6 +39,7 @@ use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\MScheduleController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\GlobalRequirmentNewsController;
+use App\Http\Controllers\Admin\EmployeeAppplicationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -133,6 +134,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('job_title', [JobtitleController::class, 'index'])->name('admin.job_title');
     
     
+
+    
+
+    Route::resource('employeeAppplication',  EmployeeAppplicationController::class);
+
     Route::resource('eventList',  EventController::class);
     
      Route::controller(EventController::class)->group(function () {

@@ -163,6 +163,10 @@
     </a>
     <ul class="sub-menu" aria-expanded="false">
 
+        @if ($usr->can('eApplicationAdd') || $usr->can('eApplicationView') || $usr->can('eApplicationDelete') || $usr->can('eApplicationUpdate'))
+        <li class="{{Route::is('employeeAppplication.show') || Route::is('employeeAppplication.create') || Route::is('employeeAppplication.edit') || Route::is('employeeAppplication.index')  ? 'active' : '' }}"><a href="{{ route('employeeAppplication.index') }}"> <span>Employee Application</span> </a></li>
+        @endif
+
         @if ($usr->can('partnerWithUsAdd') || $usr->can('partnerWithUsView') || $usr->can('partnerWithUsDelete') || $usr->can('partnerWithUsUpdate'))
         <li class="{{ Route::is('partnerWithUs.index')  ? 'active' : '' }}"><a href="{{ route('partnerWithUs.index') }}"> <span>Partner With Us</span> </a></li>
         @endif

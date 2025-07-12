@@ -155,11 +155,33 @@ Route::group(['prefix' => 'admin'], function () {
 
     });
 
-    
+    Route::post('vessel_Or_Work_Place_List_import', [VesselOrWorkPlaceController::class, 'import'])->name('vesselOrWorkPlaceList.import');
+Route::post('vesselOrWorkPlaceList/delete-multiple', [VesselOrWorkPlaceController::class, 'deleteMultiple'])->name('vesselOrWorkPlaceList.deleteMultiple');
 
 Route::resource('vesselOrWorkPlaceList',  VesselOrWorkPlaceController::class);
+
+ Route::get('vesselOrWorkPlaceList/{id}/get-assigned-departments', [VesselOrWorkPlaceController::class, 'getAssignedDepartments'])->name('vesselOrWorkPlaceList.getAssignedDepartments');
+    Route::post('vesselOrWorkPlaceList/{id}/assign-departments', [VesselOrWorkPlaceController::class, 'assignDepartments'])->name('vesselOrWorkPlaceList.assignDepartments');
+
+
 Route::resource('dreamJobSectorList',  DreamJobSectorController::class);
+
+// Define specific routes BEFORE the resource route.
+    Route::post('dream_Job_Sector_List_import', [DreamJobSectorController::class, 'import'])->name('dreamJobSectorList.import');
+    Route::post('dreamJobSectorList/delete-multiple', [DreamJobSectorController::class, 'deleteMultiple'])->name('dreamJobSectorList.deleteMultiple');
+
+    // Now, define the resource route. We can also explicitly exclude the unused 'show' and 'create' methods for cleaner routing.
+    Route::resource('dreamJobSectorList', DreamJobSectorController::class)->except([
+        'show', 'create'
+    ]);
+    // Add these lines before the resource route for DreamJobDepartment
+Route::post('dream_Job_DepartmentList_import', [DreamJobDepartmentController::class, 'import'])->name('dreamJobDepartmentList.import');
+Route::post('dreamJobDepartmentList/delete-multiple', [DreamJobDepartmentController::class, 'deleteMultiple'])->name('dreamJobDepartmentList.deleteMultiple');
 Route::resource('dreamJobDepartmentList',  DreamJobDepartmentController::class);
+
+Route::post('dream_Job_PositionList_import', [DreamJobPositionController::class, 'import'])->name('dreamJobPositionList.import');
+Route::post('dreamJobPositionList/delete-multiple', [DreamJobPositionController::class, 'deleteMultiple'])->name('dreamJobPositionList.deleteMultiple');
+
 Route::resource('dreamJobPositionList',  DreamJobPositionController::class);
     
     Route::resource('complainList',  ComplainController::class);
@@ -173,14 +195,21 @@ Route::resource('dreamJobPositionList',  DreamJobPositionController::class);
         Route::get('scheduleDownloadCv/{id}','scheduleDownloadCv')->name('scheduleDownloadCv');
     });
 
-
+// Add these lines before the resource route for Location
+Route::post('location_List_import', [LocationController::class, 'import'])->name('locationList.import');
+Route::post('locationList/delete-multiple', [LocationController::class, 'deleteMultiple'])->name('locationList.deleteMultiple');
     Route::resource('locationList',  LocationController::class);
+
+    // Add these lines before the resource route for ContactType
+Route::post('type_Of_Contact_List_import', [ContactTypeController::class, 'import'])->name('typeOfContactList.import');
+Route::post('typeOfContactList/delete-multiple', [ContactTypeController::class, 'deleteMultiple'])->name('typeOfContactList.deleteMultiple');
+
     Route::resource('typeOfContactList',  ContactTypeController::class);
 
     Route::resource('jobList', JobController::class);
 
     Route::controller(JobController::class)->group(function () {
-
+ Route::get('/get-departments-by-vessel/{vessel_id}', 'getDepartmentsByVessel')->name('getDepartmentsByVessel');
         /// Add these two routes
 Route::get('/get-vessels-by-sector/{sector_id}','getVesselsBySector')->name('getVesselsBySector');
 Route::get('/get-positions-by-department/{department_id}','getPositionsByDepartment')->name('getPositionsByDepartment');

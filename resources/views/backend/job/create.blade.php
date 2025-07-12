@@ -9,33 +9,9 @@ Create Vacancy | {{ $ins_name }}
 <style>
     .is-invalid { border-color: #dc3545 !important; }
     .invalid-feedback { display: block; width: 100%; margin-top: .25rem; font-size: .875em; color: #dc3545; }
-
-    /* Custom Select styles */
     .custom-select-container { position: relative; }
-    .custom-select-value {
-        background-color: #fff;
-        border: 1px solid #ced4da;
-        border-radius: .25rem;
-        padding: .375rem .75rem;
-        cursor: pointer;
-        user-select: none;
-        height: calc(1.5em + .75rem + 2px);
-        line-height: 1.5;
-    }
-    .custom-select-options {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background-color: #fff;
-        border: 1px solid #ced4da;
-        border-top: none;
-        border-radius: 0 0 .25rem .25rem;
-        z-index: 1050;
-        max-height: 200px;
-        overflow-y: auto;
-    }
+    .custom-select-value { background-color: #fff; border: 1px solid #ced4da; border-radius: .25rem; padding: .375rem .75rem; cursor: pointer; user-select: none; height: calc(1.5em + .75rem + 2px); line-height: 1.5; }
+    .custom-select-options { display: none; position: absolute; top: 100%; left: 0; right: 0; background-color: #fff; border: 1px solid #ced4da; border-top: none; border-radius: 0 0 .25rem .25rem; z-index: 1050; max-height: 200px; overflow-y: auto; }
     .custom-select-search { width: 100%; padding: .375rem .75rem; border: none; border-bottom: 1px solid #ced4da; outline: none; }
     .custom-select-list { list-style: none; margin: 0; padding: 0; }
     .custom-select-list li { padding: .375rem .75rem; cursor: pointer; }
@@ -88,7 +64,7 @@ Create Vacancy | {{ $ins_name }}
                                 <!-- Job Department -->
                                 <div class="form-group col-md-3 col-sm-12">
                                     <label for="job_department_id">Job Department</label>
-                                    @include('backend.job.custom_select', ['id' => 'job_department_id', 'list' => $jobDepartmentList, 'prompt' => '---Please Select---'])
+                                    @include('backend.job.custom_select', ['id' => 'job_department_id', 'list' => $jobDepartmentList, 'prompt' => '---Select Vessel First---'])
                                 </div>
 
                                 <!-- Vacancy Title -->
@@ -98,9 +74,8 @@ Create Vacancy | {{ $ins_name }}
                                 </div>
 
                             </div>
-
+                            {{-- Other fields --}}
                             <div class="row mt-3">
-                                <!-- Other fields remain the same -->
                                 <div class="form-group col-md-6 col-sm-12">
                                     <label for="job_contract_type">Vacancy Contract Type</label>
                                     @include('backend.job.custom_select', ['id' => 'job_contract_type', 'list' => $contactTypeList, 'prompt' => '---Please Select---'])
@@ -196,7 +171,7 @@ $(document).ready(function() {
         dateFormat: "Y-m-d",
     });
 
-    // --- Custom Select Logic ---
+     // --- Custom Select Logic ---
     function setupCustomSelect(container) {
         const valueDiv = container.find('.custom-select-value');
         const optionsDiv = container.find('.custom-select-options');
@@ -244,12 +219,10 @@ $(document).ready(function() {
         const list = container.find('.custom-select-list');
         const valueDiv = container.find('.custom-select-value');
 
-        // Clear existing options
         hiddenSelect.empty().append(`<option value="">${prompt}</option>`);
         list.empty();
         valueDiv.text(prompt);
 
-        // Populate with new data
         if (data && data.length > 0) {
             $.each(data, function(index, item) {
                 hiddenSelect.append(`<option value="${item.id}">${item.name}</option>`);
@@ -261,6 +234,10 @@ $(document).ready(function() {
     // On Sector Change -> Update Vessel/Work Place
     $('#job_sector_id').on('change', function() {
         const sectorId = $(this).val();
+        updateCustomSelect('vessel_or_work_place_id', [], '---Select Sector First---');
+        updateCustomSelect('job_department_id', [], '---Select Vessel First---');
+        updateCustomSelect('job_title_id', [], '---Select Department First---');
+
         if (sectorId) {
             let url = "{{ route('getVesselsBySector', ':id') }}".replace(':id', sectorId);
             $.ajax({
@@ -271,14 +248,33 @@ $(document).ready(function() {
                 },
                 error: function(xhr) { console.log('Error:', xhr.responseText); }
             });
-        } else {
-            updateCustomSelect('vessel_or_work_place_id', [], '---Select Sector First---');
+        }
+    });
+
+    // On Vessel Change -> Update Department
+    $('#vessel_or_work_place_id').on('change', function() {
+        const vesselId = $(this).val();
+        updateCustomSelect('job_department_id', [], '---Select Vessel First---');
+        updateCustomSelect('job_title_id', [], '---Select Department First---');
+
+        if (vesselId) {
+            let url = "{{ route('getDepartmentsByVessel', ':id') }}".replace(':id', vesselId);
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(data) {
+                    updateCustomSelect('job_department_id', data, '---Please Select---');
+                },
+                error: function(xhr) { console.log('Error:', xhr.responseText); }
+            });
         }
     });
 
     // On Department Change -> Update Position/Title
     $('#job_department_id').on('change', function() {
         const departmentId = $(this).val();
+        updateCustomSelect('job_title_id', [], '---Select Department First---');
+
         if (departmentId) {
             let url = "{{ route('getPositionsByDepartment', ':id') }}".replace(':id', departmentId);
             $.ajax({
@@ -289,8 +285,6 @@ $(document).ready(function() {
                 },
                 error: function(xhr) { console.log('Error:', xhr.responseText); }
             });
-        } else {
-            updateCustomSelect('job_title_id', [], '---Select Department First---');
         }
     });
 });

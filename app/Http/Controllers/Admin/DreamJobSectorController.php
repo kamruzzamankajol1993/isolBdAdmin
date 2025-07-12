@@ -6,13 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\DreamJobSector;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\DreamJobSectorImport;
 class DreamJobSectorController extends Controller
 {
     public function index(Request $request)
     {
         // Check if the request is an AJAX request for fetching data
         if ($request->ajax()) {
-            $query = DreamJobSector::query()->orderBy('name', 'asc');
+            $query = DreamJobSector::query()->orderBy('id', 'asc');
 
             // Handle search functionality
             if ($request->has('search') && !empty($request->search['value'])) {
@@ -127,5 +129,49 @@ class DreamJobSectorController extends Controller
         // Delete the sector
         $dreamJobSector->delete();
         return response()->json(['success' => 'Dream Job Sector deleted successfully.']);
+    }
+
+     public function import(Request $request)
+    {
+
+       // dd(1);
+
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|mimes:xlsx,xls,csv'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        try {
+
+            
+            Excel::import(new DreamJobSectorImport, $request->file('file'));
+            return response()->json(['success' => 'Data imported successfully.']);
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+             $failures = $e->failures();
+             $errors = [];
+             foreach ($failures as $failure) {
+                 $errors[] = "Row " . $failure->row() . ": " . implode(", ", $failure->errors());
+             }
+             return response()->json(['errors' => ['file' => $errors]], 422);
+        }
+    }
+
+    /**
+     * Remove multiple resources from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteMultiple(Request $request)
+    {
+        $ids = $request->input('ids');
+        if (is_array($ids) && count($ids) > 0) {
+            DreamJobSector::whereIn('id', $ids)->delete();
+            return response()->json(['success' => 'Selected sectors have been deleted.']);
+        }
+        return response()->json(['error' => 'No sectors selected.'], 400);
     }
 }

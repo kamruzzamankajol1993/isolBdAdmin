@@ -14,7 +14,7 @@ use App\Models\Jobdepartment;
 use App\Models\Jobcategory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Models\Location;
 use App\Models\ContactType;
 
@@ -33,6 +33,24 @@ class JobController extends Controller
     {
         $positions = DreamJobPosition::where('dream_job_department_id', $department_id)->get();
         return response()->json($positions);
+    }
+
+     public function getDepartmentsByVessel($vessel_id)
+    {
+        // Find department IDs specifically assigned to this vessel
+        $assignedDepartmentIds = DB::table('vessel_deparments')
+                                    ->where('vessel_or_work_place_id', $vessel_id)
+                                    ->pluck('dream_job_department_id');
+
+        if ($assignedDepartmentIds->isNotEmpty()) {
+            // If there are assigned departments, fetch them
+            $departments = DreamJobDepartment::whereIn('id', $assignedDepartmentIds)->get();
+        } else {
+            // Otherwise, fetch all departments
+            $departments = DreamJobDepartment::all();
+        }
+
+        return response()->json($departments);
     }
     /**
      * Display a listing of the resource.

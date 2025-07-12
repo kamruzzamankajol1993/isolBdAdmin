@@ -5,9 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ContactType extends Model
+class VesselDeparment extends Model
 {
      use HasFactory;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'vessel_deparments';
 
     /**
      * The attributes that are mass assignable.
@@ -15,6 +22,8 @@ class ContactType extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'vessel_or_work_place_id', 'dream_job_department_id'
     ];
+
+    
 }

@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\DreamJobDepartment;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\DreamJobDepartmentImport;
 use Illuminate\Support\Facades\Validator;
 class DreamJobDepartmentController extends Controller
 {
@@ -19,7 +20,7 @@ class DreamJobDepartmentController extends Controller
     {
         // Handle AJAX requests for table data
         if ($request->ajax()) {
-            $query = DreamJobDepartment::query()->orderBy('name', 'asc');
+            $query = DreamJobDepartment::query()->orderBy('id', 'asc');
 
             // Handle search functionality
             if ($request->has('search') && !empty($request->search['value'])) {
@@ -113,5 +114,44 @@ class DreamJobDepartmentController extends Controller
 
         $department->delete();
         return response()->json(['success' => 'Department deleted successfully.']);
+    }
+
+      /**
+     * Import data from an Excel file.
+     */
+    public function import(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|mimes:xlsx,xls,csv'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        try {
+            Excel::import(new DreamJobDepartmentImport, $request->file('file'));
+            return response()->json(['success' => 'Departments imported successfully.']);
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+             $failures = $e->failures();
+             $errors = [];
+             foreach ($failures as $failure) {
+                 $errors[] = "Row " . $failure->row() . ": " . implode(", ", $failure->errors());
+             }
+             return response()->json(['errors' => ['file' => $errors]], 422);
+        }
+    }
+
+    /**
+     * Remove multiple resources from storage.
+     */
+    public function deleteMultiple(Request $request)
+    {
+        $ids = $request->input('ids');
+        if (is_array($ids) && count($ids) > 0) {
+            DreamJobDepartment::whereIn('id', $ids)->delete();
+            return response()->json(['success' => 'Selected departments have been deleted successfully.']);
+        }
+        return response()->json(['error' => 'No departments selected for deletion.'], 400);
     }
 }

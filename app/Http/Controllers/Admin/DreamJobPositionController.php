@@ -7,7 +7,8 @@ use App\Models\DreamJobPosition;
 use App\Models\DreamJobDepartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\DreamJobPositionImport;
 class DreamJobPositionController extends Controller
 {
     /**
@@ -18,9 +19,11 @@ class DreamJobPositionController extends Controller
      */
     public function index(Request $request)
     {
+
+
         // Handle AJAX requests for table data
         if ($request->ajax()) {
-            $query = DreamJobPosition::with('department')->orderBy('name', 'asc');
+            $query = DreamJobPosition::with('department')->orderBy('id', 'asc');
 
             // Handle search
             if ($request->has('search') && !empty($request->search['value'])) {
@@ -121,5 +124,41 @@ class DreamJobPositionController extends Controller
 
         $position->delete();
         return response()->json(['success' => 'Position deleted successfully.']);
+    }
+
+     public function import(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|mimes:xlsx,xls,csv'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        try {
+            Excel::import(new DreamJobPositionImport, $request->file('file'));
+            return response()->json(['success' => 'Job positions imported successfully.']);
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+             $failures = $e->failures();
+             $errors = [];
+             foreach ($failures as $failure) {
+                 $errors[] = "Row " . $failure->row() . ": " . implode(", ", $failure->errors());
+             }
+             return response()->json(['errors' => ['file' => $errors]], 422);
+        }
+    }
+
+    /**
+     * Remove multiple job positions from storage.
+     */
+    public function deleteMultiple(Request $request)
+    {
+        $ids = $request->input('ids');
+        if (is_array($ids) && count($ids) > 0) {
+            DreamJobPosition::whereIn('id', $ids)->delete();
+            return response()->json(['success' => 'Selected positions have been deleted successfully.']);
+        }
+        return response()->json(['error' => 'No positions selected for deletion.'], 400);
     }
 }

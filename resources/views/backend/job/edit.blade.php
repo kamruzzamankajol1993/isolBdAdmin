@@ -10,30 +10,8 @@ Edit Vacancy | {{ $ins_name }}
     .is-invalid { border-color: #dc3545 !important; }
     .invalid-feedback { display: block; width: 100%; margin-top: .25rem; font-size: .875em; color: #dc3545; }
     .custom-select-container { position: relative; }
-    .custom-select-value {
-        background-color: #fff;
-        border: 1px solid #ced4da;
-        border-radius: .25rem;
-        padding: .375rem .75rem;
-        cursor: pointer;
-        user-select: none;
-        height: calc(1.5em + .75rem + 2px);
-        line-height: 1.5;
-    }
-    .custom-select-options {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background-color: #fff;
-        border: 1px solid #ced4da;
-        border-top: none;
-        border-radius: 0 0 .25rem .25rem;
-        z-index: 1050;
-        max-height: 200px;
-        overflow-y: auto;
-    }
+    .custom-select-value { background-color: #fff; border: 1px solid #ced4da; border-radius: .25rem; padding: .375rem .75rem; cursor: pointer; user-select: none; height: calc(1.5em + .75rem + 2px); line-height: 1.5; }
+    .custom-select-options { display: none; position: absolute; top: 100%; left: 0; right: 0; background-color: #fff; border: 1px solid #ced4da; border-top: none; border-radius: 0 0 .25rem .25rem; z-index: 1050; max-height: 200px; overflow-y: auto; }
     .custom-select-search { width: 100%; padding: .375rem .75rem; border: none; border-bottom: 1px solid #ced4da; outline: none; }
     .custom-select-list { list-style: none; margin: 0; padding: 0; }
     .custom-select-list li { padding: .375rem .75rem; cursor: pointer; }
@@ -71,7 +49,6 @@ Edit Vacancy | {{ $ins_name }}
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="row">
-
                                 <!-- Vacancy Category / Sector -->
                                 <div class="form-group col-md-3 col-sm-12">
                                     <label for="job_sector_id">Vacancy Category / Sector</label>
@@ -87,6 +64,7 @@ Edit Vacancy | {{ $ins_name }}
                                 <!-- Job Department -->
                                 <div class="form-group col-md-3 col-sm-12">
                                     <label for="job_department_id">Job Department</label>
+                                    {{-- This will be populated dynamically, but we load all departments initially for the edit view --}}
                                     @include('backend.job.custom_select_edit', ['id' => 'job_department_id', 'list' => $jobDepartmentList, 'selectedValue' => $job->job_department_id])
                                 </div>
 
@@ -95,9 +73,8 @@ Edit Vacancy | {{ $ins_name }}
                                     <label for="job_title_id">Vacancy Title</label>
                                      @include('backend.job.custom_select_edit', ['id' => 'job_title_id', 'list' => $jobTitleList, 'selectedValue' => $job->job_title_id])
                                 </div>
-
                             </div>
-
+                            {{-- Other fields --}}
                             <div class="row mt-3">
                                 <div class="form-group col-md-4 col-sm-12">
                                     <label for="agency_name">Agency Name</label>
@@ -179,7 +156,7 @@ Edit Vacancy | {{ $ins_name }}
 $(document).ready(function() {
     flatpickr(".custom-datepicker", { dateFormat: "Y-m-d" });
 
-    function setupCustomSelect(container) {
+   function setupCustomSelect(container) {
         const valueDiv = container.find('.custom-select-value');
         const optionsDiv = container.find('.custom-select-options');
         const searchInput = container.find('.custom-select-search');
@@ -213,53 +190,65 @@ $(document).ready(function() {
         }
     });
 
-    function updateCustomSelect(selectId, data, prompt) {
+    function updateCustomSelect(selectId, data, prompt, selectedValue = null) {
         const hiddenSelect = $(`#${selectId}`);
         const container = hiddenSelect.prev('.custom-select-container');
         const list = container.find('.custom-select-list');
         const valueDiv = container.find('.custom-select-value');
+
         hiddenSelect.empty().append(`<option value="">${prompt}</option>`);
         list.empty();
         valueDiv.text(prompt);
+
         if (data && data.length > 0) {
             $.each(data, function(index, item) {
-                hiddenSelect.append(`<option value="${item.id}">${item.name}</option>`);
+                let option = $(`<option value="${item.id}">${item.name}</option>`);
+                if (item.id == selectedValue) {
+                    option.prop('selected', true);
+                    valueDiv.text(item.name);
+                }
+                hiddenSelect.append(option);
                 list.append(`<li data-value="${item.id}">${item.name}</li>`);
             });
         }
     }
 
+    // On Sector Change -> Update Vessel/Work Place
     $('#job_sector_id').on('change', function() {
         const sectorId = $(this).val();
+        updateCustomSelect('vessel_or_work_place_id', [], '---Select Sector First---');
+        updateCustomSelect('job_department_id', [], '---Select Vessel First---');
+        updateCustomSelect('job_title_id', [], '---Select Department First---');
         if (sectorId) {
             let url = "{{ route('getVesselsBySector', ':id') }}".replace(':id', sectorId);
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function(data) {
-                    updateCustomSelect('vessel_or_work_place_id', data, '---Please Select---');
-                },
-                error: function(xhr) { console.log('Error:', xhr.responseText); }
+            $.get(url, function(data) {
+                updateCustomSelect('vessel_or_work_place_id', data, '---Please Select---');
             });
-        } else {
-            updateCustomSelect('vessel_or_work_place_id', [], '---Select Sector First---');
         }
     });
 
+    // On Vessel Change -> Update Department
+    $('#vessel_or_work_place_id').on('change', function() {
+        const vesselId = $(this).val();
+        updateCustomSelect('job_department_id', [], '---Select Vessel First---');
+        updateCustomSelect('job_title_id', [], '---Select Department First---');
+        if (vesselId) {
+            let url = "{{ route('getDepartmentsByVessel', ':id') }}".replace(':id', vesselId);
+            $.get(url, function(data) {
+                updateCustomSelect('job_department_id', data, '---Please Select---');
+            });
+        }
+    });
+
+    // On Department Change -> Update Position/Title
     $('#job_department_id').on('change', function() {
         const departmentId = $(this).val();
+        updateCustomSelect('job_title_id', [], '---Select Department First---');
         if (departmentId) {
             let url = "{{ route('getPositionsByDepartment', ':id') }}".replace(':id', departmentId);
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function(data) {
-                    updateCustomSelect('job_title_id', data, '---Please Select---');
-                },
-                error: function(xhr) { console.log('Error:', xhr.responseText); }
+            $.get(url, function(data) {
+                updateCustomSelect('job_title_id', data, '---Please Select---');
             });
-        } else {
-            updateCustomSelect('job_title_id', [], '---Select Department First---');
         }
     });
 });

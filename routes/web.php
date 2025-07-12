@@ -38,6 +38,12 @@ use App\Http\Controllers\Admin\ComplainController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\MScheduleController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\GlobalRequirmentNewsController;
+use App\Http\Controllers\Admin\EmployeeAppplicationController;
+use App\Http\Controllers\Admin\VesselOrWorkPlaceController;
+use App\Http\Controllers\Admin\DreamJobSectorController;
+use App\Http\Controllers\Admin\DreamJobDepartmentController;
+use App\Http\Controllers\Admin\DreamJobPositionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -125,19 +131,36 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'admin'], function () {
+
     
+    Route::resource('globalRequirmentNews',  GlobalRequirmentNewsController::class);
     
     Route::get('job_title', [JobtitleController::class, 'index'])->name('admin.job_title');
     
     
+
+    
+
+    Route::resource('employeeAppplication',  EmployeeAppplicationController::class);
+
     Route::resource('eventList',  EventController::class);
     
      Route::controller(EventController::class)->group(function () {
+
+
+        Route::delete('deletePerticipant/{id}','deletePerticipant')->name('deletePerticipant');
 
         Route::delete('deletePerticipant/{id}','deletePerticipant')->name('deletePerticipant');
 
 
     });
+
+    
+
+Route::resource('vesselOrWorkPlaceList',  VesselOrWorkPlaceController::class);
+Route::resource('dreamJobSectorList',  DreamJobSectorController::class);
+Route::resource('dreamJobDepartmentList',  DreamJobDepartmentController::class);
+Route::resource('dreamJobPositionList',  DreamJobPositionController::class);
     
     Route::resource('complainList',  ComplainController::class);
     Route::resource('inquiryList',  InquiryController::class);
@@ -157,6 +180,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('jobList', JobController::class);
 
     Route::controller(JobController::class)->group(function () {
+
+        /// Add these two routes
+Route::get('/get-vessels-by-sector/{sector_id}','getVesselsBySector')->name('getVesselsBySector');
+Route::get('/get-positions-by-department/{department_id}','getPositionsByDepartment')->name('getPositionsByDepartment');
 
         Route::get('getJobTitleForDepartment','getJobTitleForDepartment')->name('getJobTitleForDepartment');
 

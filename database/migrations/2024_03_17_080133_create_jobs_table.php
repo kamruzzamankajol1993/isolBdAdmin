@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->string('job_category_id')->nullable();
+            $table->string('job_sector_id')->nullable();
+            $table->string('vessel_or_work_place_id')->nullable();
             $table->string('job_department_id')->nullable();
             $table->string('job_title_id')->nullable();
             $table->string('job_title_slug')->nullable();
@@ -32,6 +33,7 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->string('status',50)->nullable();
             $table->string('user_id',50)->nullable();
+            $table->string('urgent_vacancy',50)->nullable();
             $table->timestamps();
         });
     }

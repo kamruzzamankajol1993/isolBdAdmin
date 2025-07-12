@@ -122,15 +122,30 @@ System information | {{ $ins_name }}
                                                                 <input type="text" class="form-control form-control-sm" value="{{ $user->Phone }}" name="Phone" placeholder="Enter Phone">
                                                             </div>
 
+                                                            <div class="form-group col-md-6 col-sm-12">
+                                                                <label for="name">Phone 2</label>
+                                                                <input type="text" class="form-control form-control-sm" value="{{ $user->phoneTwo }}" name="phoneTwo" placeholder="Enter Phone 2">
+                                                            </div>
+
                                                              <div class="form-group col-md-6 col-sm-12">
                                                                 <label for="name">Email</label>
                                                                 <input type="email" class="form-control form-control-sm" value="{{ $user->Email }}" name="Email" placeholder="Enter Email">
                                                             </div>
 
                                                             <div class="form-group col-md-6 col-sm-12">
+                                                                <label for="name">Email 2</label>
+                                                                <input type="email" class="form-control form-control-sm" value="{{ $user->emailTwo }}" name="emailTwo" placeholder="Enter Email 2">
+                                                            </div>
+
+                                                            <div class="form-group col-md-6 col-sm-12">
                                                     <label for="password"> Address</label>
                      <input type="text" class="form-control form-control-sm" value="{{ $user->Address }}" name="Address" placeholder="Enter Address">
                                                             </div>
+
+                                                            <div class="form-group col-md-6 col-sm-12">
+                                                                <label for="password"> Address 2</label>
+                                 <input type="text" class="form-control form-control-sm" value="{{ $user->addressTwo }}" name="addressTwo" placeholder="Enter Address">
+                                                                        </div>
                                                         </div>
                                                 <div class="row">
                                                     
@@ -150,6 +165,11 @@ System information | {{ $ins_name }}
                                             <label for="password"> Admin Url</label>
              <input type="text" class="form-control form-control-sm" value="{{ $user->adminUrl }}" name="adminUrl" placeholder="Enter adminUrl">
                                                     </div>
+
+                                                    <div class="form-group col-md-6 col-sm-12">
+                                                        <label for="password">Seafarers</label>
+                         <input type="text" class="form-control form-control-sm" value="{{ $user->seafarers }}" name="seafarers" placeholder="Enter Seafarers">
+                                                                </div>
 
 
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Employeereview;
 use App\Models\Employerreview;
+use DB;
 class NinthrowController extends Controller
 {
     public function index(){
@@ -17,8 +18,8 @@ class NinthrowController extends Controller
     public function subscriptionList(){
 
 
-        $employee_list = Employeereview::latest()->get();
-        $employer_list = Employerreview::latest()->get();
+        $employee_list = DB::table('news_receiver_lists')->latest()->get();
+        $employer_list =DB::table('news_receiver_lists')->latest()->get();
         return view('backend.ninth_row_list.subscriptionList',['employee_list'=>$employee_list,'employer_list'=>$employer_list]);
 
     }
@@ -43,6 +44,16 @@ class NinthrowController extends Controller
         return redirect()->route('admin.ninth_row_info')->with('info','Updated successfully!');
     }
 
+
+
+    public function delete_second($id)
+    {
+
+        DB::table('news_receiver_lists')->where('id',$id)->delete();
+
+
+        return back()->with('error','Deleted successfully!');
+    }
 
     public function delete($id)
     {

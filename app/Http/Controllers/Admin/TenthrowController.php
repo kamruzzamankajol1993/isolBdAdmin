@@ -16,7 +16,7 @@ class TenthrowController extends Controller
 
     public function store(Request $request){
         $user = new Tenthrow();
-
+        $user->title = $request->title;
         $user->jobid = Str::upper(Str::random(5));
         if ($request->hasfile('image')) {
             $file = $request->file('image');
@@ -32,7 +32,7 @@ class TenthrowController extends Controller
 
     public function update(Request $request){
         $user = Tenthrow::find($request->id);
-
+        $user->title = $request->title;
 
         if ($request->hasfile('image')) {
             $file = $request->file('image');

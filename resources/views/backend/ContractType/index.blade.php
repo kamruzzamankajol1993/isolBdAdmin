@@ -39,13 +39,13 @@ Contract Type| {{ $ins_name }}
                         <div class="col-sm-6">
                             <div class="float-right d-md-block">
                                 <div class="dropdown">
-                                @if (Auth::guard('admin')->user()->can('typeOfContactAdd'))
+                               
 
 <button class="btn btn-primary dropdown-toggle waves-effect  btn-sm waves-light" type="button" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg456">
                                         <i class="far fa-calendar-plus  mr-2"></i> Add
                                                                       </button>
 
-@endif
+
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@ Contract Type| {{ $ins_name }}
 
 
                                     <td>
-                                      @if (Auth::guard('admin')->user()->can('typeOfContactUpdate'))
+                                      
 
                     <button type="button"  data-bs-toggle="modal" data-bs-target=".bs-example-modal-lgrr{{ $user->id }}"
                                           class="btn btn-primary waves-light waves-effect  btn-sm" >
@@ -183,14 +183,14 @@ Contract Type| {{ $ins_name }}
 </div>
 
 
-@endif
 
 
 
 
 
 
-                                  @if (Auth::guard('admin')->user()->can('typeOfContactDelete'))
+
+                                  
 
 <button   type="button" class="btn btn-danger waves-light waves-effect  btn-sm" onclick="deleteTag({{ $user->id}})" data-toggle="tooltip" title="Delete"><i class="fas fa-trash-alt"></i></button>
                     <form id="delete-form-{{ $user->id }}" action="{{ route('typeOfContactList.destroy',$user->id) }}" method="POST" style="display: none;">
@@ -199,7 +199,7 @@ Contract Type| {{ $ins_name }}
                                                     @method('DELETE')
 
                                                 </form>
-                                                @endif
+                                               
                                     </td>
                                 </tr>
 @endforeach

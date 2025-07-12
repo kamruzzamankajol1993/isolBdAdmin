@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Job;
+use App\Models\DreamJobSector;
+use App\Models\DreamJobDepartment;
+use App\Models\DreamJobPosition;
+use App\Models\VesselOrWorkPlace;
 use App\Models\Jobtitle;
 use App\Models\Jobdepartment;
 use App\Models\Jobcategory;
@@ -13,8 +17,23 @@ use Illuminate\Support\Facades\Auth;
 use DB;
 use App\Models\Location;
 use App\Models\ContactType;
+
+use Illuminate\Support\Facades\Validator;
 class JobController extends Controller
 {
+
+
+     public function getVesselsBySector($sector_id)
+    {
+        $vessels = VesselOrWorkPlace::where('dream_job_sector_id', $sector_id)->get();
+        return response()->json($vessels);
+    }
+
+    public function getPositionsByDepartment($department_id)
+    {
+        $positions = DreamJobPosition::where('dream_job_department_id', $department_id)->get();
+        return response()->json($positions);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -52,20 +71,20 @@ class JobController extends Controller
 
         try{
 
-
-        $headline_list = Jobtitle::latest()->get();
-        $headline_list2 = Jobdepartment::latest()->get();
-        $headline_list1 = Jobcategory::latest()->get();
-
         $contactTypeList = ContactType::latest()->get();
         $locationList = Location::latest()->get();
+
+        $vesselOrWorkPlaceList = VesselOrWorkPlace::latest()->get();
+        $jobTitleList = DreamJobPosition::latest()->get();
+        $jobDepartmentList = DreamJobDepartment::latest()->get();
+        $jobCategoryList = DreamJobSector::latest()->get();
 
     } catch (\Exception $e) {
         return redirect()->back()->with('error','some thing went wrong ');
       }
 
 
-        return view('backend.job.create',['locationList'=>$locationList,'contactTypeList'=>$contactTypeList,'headline_list'=>$headline_list,'headline_list1'=>$headline_list1,'headline_list2'=>$headline_list2]);
+        return view('backend.job.create',['locationList'=>$locationList,'contactTypeList'=>$contactTypeList,'vesselOrWorkPlaceList'=>$vesselOrWorkPlaceList,'jobTitleList'=>$jobTitleList,'jobDepartmentList'=>$jobDepartmentList,'jobCategoryList'=>$jobCategoryList]);
     }
 
 
@@ -77,127 +96,45 @@ class JobController extends Controller
      return response()->json($data);
  }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-
-        //dd($request->all());
-
-
-        //new code start
-
-        $LastId = Job::where('user_id',Auth::guard('admin')->user()->id)
-        ->orderBy('id','desc')->value('job_id');
-
-        if(empty($LastId)){
-
-             $mainNumber = 1;
-             $number = sprintf('%05d',$mainNumber);
-
-        }else{
-            $mainNumber = $LastId + 1;
-            $number = sprintf('%05d',$mainNumber);
-
-        }
-
-
-        $result = strtoupper(substr($request->agency_name, 0, 3));
-
-
-
-        //end new code
-
-
-        // Validation Data
-        $request->validate([
-
-
-            'job_category_id' => 'required',
-            'job_department_id' => 'required',
-            'job_title_id' => 'required',
-            'agency_name' => 'required',
-            'salary' => 'required',
-            'job_area' => 'required',
-            'job_type' => 'required',
-            'duration' => 'required',
-            'job_experience' => 'required',
-            'status' => 'required',
-            'description' => 'required',
-            'post_date' => 'required',
-            'expire_date' => 'required',
+        $validator = Validator::make($request->all(), [
+            'job_sector_id' => 'required|exists:dream_job_sectors,id',
+            'vessel_or_work_place_id' => 'required|exists:vessel_or_work_places,id',
+            'job_department_id' => 'required|exists:dream_job_departments,id',
+            'job_title_id' => 'required|exists:dream_job_positions,id',
+            'agency_name' => 'required|string|max:255',
+            'salary' => 'required|string|max:255',
+            'post_date' => 'required|date',
+            'expire_date' => 'required|date|after_or_equal:post_date',
+            'job_experience' => 'required|string|max:255',
+            'job_type' => 'required|string',
+            'description' => 'required|string',
+            'status' => 'required|boolean',
+            'urgent_vacancy' => 'required|boolean',
         ]);
 
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
-        try{
-            DB::beginTransaction();
+        try {
+            $data = $request->all();
+            // Generate a unique 6-digit hexadecimal job ID
+            $data['job_id'] = substr(md5(uniqid(rand(), true)), 0, 6);
+            // Create a slug from the job title
+            $jobTitle = DreamJobPosition::find($request->job_title_id);
+            $data['job_title_slug'] = Str::slug($jobTitle->name . '-' . $data['job_id']);
+            // Assuming user_id is the authenticated user
+            $data['user_id'] = Auth::guard('admin')->user()->id;
 
-            $admins = new Job();
-            $admins->job_id = $mainNumber;
-            $admins->job_main_id = $result.'-'.$number;
-            $admins->job_category_id = $request->job_category_id;
-            $admins->job_department_id = $request->job_department_id;
-            $admins->urgent_vacancy = $request->urgent_vacancy;
-            $admins->job_title_id = $request->job_title_id;
-            $admins->agency_name = $request->agency_name;
-            $admins->job_title_slug = Str::slug($request->job_category_id.' '.$request->job_title_id);
-            $admins->salary = $request->salary;
-            $admins->job_area = $request->job_area;
-            $admins->job_contract_type = $request->job_contract_type;
-            $admins->job_location = $request->job_location;
-            $admins->job_type = $request->job_type;
-            $admins->duration = $request->duration;
-            $admins->user_id = Auth::guard('admin')->user()->id;
-            $admins->job_experience = $request->job_experience;
-            $admins->status = $request->status;
-            $admins->description = $request->description;
-            $admins->post_date=date('Y-m-d', strtotime($request->post_date));
-            $admins->expire_date=date('Y-m-d', strtotime($request->expire_date));
-            $admins->save();
+            Job::create($data);
 
-
-
-
-            DB::commit();
-
-            return redirect()->route('jobList.index')->with('success','Created successfully!');
+            return redirect()->route('jobList.index')->with('success', 'Vacancy created successfully.');
 
         } catch (\Exception $e) {
-            DB::rollBack();
-
-            return redirect()->back()->with('error','some thing went wrong ');
-           }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-
-        try{
-
-        $job_list = Job::where('user_id',Auth::guard('admin')->user()->id)->where('id',$id)->first();
-        $headline_list = Jobtitle::latest()->get();
-        $headline_list2 = Jobdepartment::latest()->get();
-        $headline_list1 = Jobcategory::latest()->get();
-
-        $contactTypeList = ContactType::latest()->get();
-        $locationList = Location::latest()->get();
-
-    } catch (\Exception $e) {
-        return redirect()->back()->with('error','some thing went wrong ');
-      }
-
-
-        return view('backend.job.view',['locationList'=>$locationList,'contactTypeList'=>$contactTypeList,'job_list'=>$job_list,'headline_list'=>$headline_list,'headline_list1'=>$headline_list1,'headline_list2'=>$headline_list2]);
+            return redirect()->back()->with('error', 'Something went wrong. ' . $e->getMessage())->withInput();
+        }
     }
 
     /**
@@ -208,24 +145,29 @@ class JobController extends Controller
      */
     public function edit($id)
     {
+        try {
+            $job = Job::findOrFail($id);
 
-        try{
+            $contactTypeList = ContactType::latest()->get();
+            $locationList = Location::latest()->get();
+            $vesselOrWorkPlaceList = VesselOrWorkPlace::where('dream_job_sector_id', $job->job_sector_id)->get();
+            $jobTitleList = DreamJobPosition::where('dream_job_department_id', $job->job_department_id)->get();
+            $jobDepartmentList = DreamJobDepartment::latest()->get();
+            $jobCategoryList = DreamJobSector::latest()->get();
 
+            return view('backend.job.edit', compact(
+                'job',
+                'locationList',
+                'contactTypeList',
+                'vesselOrWorkPlaceList',
+                'jobTitleList',
+                'jobDepartmentList',
+                'jobCategoryList'
+            ));
 
-        $job_list = Job::where('user_id',Auth::guard('admin')->user()->id)->where('id',$id)->first();
-        $headline_list = Jobtitle::latest()->get();
-        $headline_list2 = Jobdepartment::latest()->get();
-        $headline_list1 = Jobcategory::latest()->get();
-
-        $contactTypeList = ContactType::latest()->get();
-        $locationList = Location::latest()->get();
-
-    } catch (\Exception $e) {
-        return redirect()->back()->with('error','some thing went wrong ');
-      }
-
-
-        return view('backend.job.edit',['locationList'=>$locationList,'contactTypeList'=>$contactTypeList,'job_list'=>$job_list,'headline_list'=>$headline_list,'headline_list1'=>$headline_list1,'headline_list2'=>$headline_list2]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong.');
+        }
     }
 
     /**
@@ -237,40 +179,67 @@ class JobController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try{
-            DB::beginTransaction();
+        $job = Job::findOrFail($id);
 
-            $admins = Job::find($id);
-            $admins->job_category_id = $request->job_category_id;
-            $admins->job_department_id = $request->job_department_id;
-            $admins->job_title_id = $request->job_title_id;
-            $admins->urgent_vacancy = $request->urgent_vacancy;
-            $admins->agency_name = $request->agency_name;
-            $admins->job_title_slug = Str::slug($request->job_category_id.' '.$request->job_title_id);
-            $admins->salary = $request->salary;
-            $admins->job_area = $request->job_area;
-            $admins->job_contract_type = $request->job_contract_type;
-            $admins->job_location = $request->job_location;
-            $admins->job_type = $request->job_type;
-            $admins->duration = $request->duration;
-            $admins->job_experience = $request->job_experience;
-            $admins->status = $request->status;
-            $admins->description = $request->description;
-            $admins->post_date=date('Y-m-d', strtotime($request->post_date));
-            $admins->expire_date=date('Y-m-d', strtotime($request->expire_date));
-            $admins->save();
+        $validator = Validator::make($request->all(), [
+            'job_sector_id' => 'required|exists:dream_job_sectors,id',
+            'vessel_or_work_place_id' => 'required|exists:vessel_or_work_places,id',
+            'job_department_id' => 'required|exists:dream_job_departments,id',
+            'job_title_id' => 'required|exists:dream_job_positions,id',
+            'agency_name' => 'required|string|max:255',
+            'salary' => 'required|string|max:255',
+            'post_date' => 'required|date',
+            'expire_date' => 'required|date|after_or_equal:post_date',
+            'job_experience' => 'required|string|max:255',
+            'job_type' => 'required|string',
+            'description' => 'required|string',
+            'status' => 'required|boolean',
+            'urgent_vacancy' => 'required|boolean',
+        ]);
 
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
-            DB::commit();
+        try {
+            $data = $request->all();
+            // Re-create slug in case title changed
+            $jobTitle = DreamJobPosition::find($request->job_title_id);
+            $data['job_title_slug'] = Str::slug($jobTitle->name . '-' . $job->job_id);
 
-            return redirect()->route('jobList.index')->with('success','Updated successfully!');
+            $job->update($data);
+
+            return redirect()->route('jobList.index')->with('success', 'Vacancy updated successfully.');
 
         } catch (\Exception $e) {
-            DB::rollBack();
-
-            return redirect()->back()->with('error','some thing went wrong ');
-           }
+            return redirect()->back()->with('error', 'Something went wrong. ' . $e->getMessage())->withInput();
+        }
     }
+     public function show($id)
+    {
+        try {
+            // Find the job and eager load all its relationships
+            $job = Job::with([
+                'position',
+                'department',
+                'jobSector',
+                'vesselOrWorkPlace'
+            ])->findOrFail($id);
+
+            return view('backend.job.view', compact('job'));
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Vacancy not found.');
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+   
 
     /**
      * Remove the specified resource from storage.

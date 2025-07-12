@@ -76,6 +76,11 @@ protected function imageUpload($request){
        $user->blogUrl = $request->blogUrl;
        $user->frontUrl = $request->frontUrl;
        $user->adminUrl = $request->adminUrl;
+       $user->seafarers = $request->seafarers;
+       $user->addressTwo = $request->addressTwo;
+       $user->phoneTwo = $request->phoneTwo;
+       $user->emailTwo = $request->emailTwo;
+
        $user->logo = $image;
        $user->icon = $icon;
         $user->save();
@@ -95,6 +100,12 @@ protected function imageUpload($request){
        $user->Address = $request->Address;
        $user->frontUrl = $request->frontUrl;
        $user->adminUrl = $request->adminUrl;
+
+       $user->seafarers = $request->seafarers;
+       $user->addressTwo = $request->addressTwo;
+       $user->phoneTwo = $request->phoneTwo;
+       $user->emailTwo = $request->emailTwo;
+       
        $user->blogUrl = $request->blogUrl;
        $user->Phone = $request->Phone;
        $user->Email = $request->Email;

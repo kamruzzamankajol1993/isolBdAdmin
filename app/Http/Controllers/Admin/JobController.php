@@ -64,12 +64,12 @@ class JobController extends Controller
 
 
         $job_list = Job::where('user_id',Auth::guard('admin')->user()->id)->latest()->get();
-        $headline_list = Jobtitle::latest()->get();
-        $headline_list2 = Jobdepartment::latest()->get();
-        $headline_list1 = Jobcategory::latest()->get();
+        $headline_list = Jobtitle::get();
+        $headline_list2 = Jobdepartment::get();
+        $headline_list1 = Jobcategory::get();
 
-        $contactTypeList = ContactType::latest()->get();
-        $locationList = Location::latest()->get();
+        $contactTypeList = ContactType::get();
+        $locationList = Location::get();
 
     } catch (\Exception $e) {
         return redirect()->back()->with('error','some thing went wrong ');
@@ -89,13 +89,13 @@ class JobController extends Controller
 
         try{
 
-        $contactTypeList = ContactType::latest()->get();
-        $locationList = Location::latest()->get();
+        $contactTypeList = ContactType::get();
+        $locationList = Location::get();
 
-        $vesselOrWorkPlaceList = VesselOrWorkPlace::latest()->get();
-        $jobTitleList = DreamJobPosition::latest()->get();
-        $jobDepartmentList = DreamJobDepartment::latest()->get();
-        $jobCategoryList = DreamJobSector::latest()->get();
+        $vesselOrWorkPlaceList = VesselOrWorkPlace::get();
+        $jobTitleList = DreamJobPosition::get();
+        $jobDepartmentList = DreamJobDepartment::get();
+        $jobCategoryList = DreamJobSector::get();
 
     } catch (\Exception $e) {
         return redirect()->back()->with('error','some thing went wrong ');
@@ -108,7 +108,7 @@ class JobController extends Controller
 
     public function getJobTitleForDepartment(Request $request){
 
-        $get_dp = Jobtitle::where('dp_id',$request->cat_name)->latest()->get();
+        $get_dp = Jobtitle::where('dp_id',$request->cat_name)->get();
 
      $data = view('backend.job.getJobTitleForDepartment',compact('get_dp'))->render();
      return response()->json($data);
@@ -166,12 +166,12 @@ class JobController extends Controller
         try {
             $job = Job::findOrFail($id);
 
-            $contactTypeList = ContactType::latest()->get();
-            $locationList = Location::latest()->get();
+            $contactTypeList = ContactType::get();
+            $locationList = Location::get();
             $vesselOrWorkPlaceList = VesselOrWorkPlace::where('dream_job_sector_id', $job->job_sector_id)->get();
             $jobTitleList = DreamJobPosition::where('dream_job_department_id', $job->job_department_id)->get();
-            $jobDepartmentList = DreamJobDepartment::latest()->get();
-            $jobCategoryList = DreamJobSector::latest()->get();
+            $jobDepartmentList = DreamJobDepartment::get();
+            $jobCategoryList = DreamJobSector::get();
 
             return view('backend.job.edit', compact(
                 'job',

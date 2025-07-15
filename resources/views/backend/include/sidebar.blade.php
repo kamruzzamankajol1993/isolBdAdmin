@@ -62,12 +62,12 @@
         {{-- <li class="{{ Route::is('admin.second_row_info')  ? 'active' : '' }}"><a href="{{ route('admin.second_row_info') }}"> <span>Slider</span> </a></li> --}}
 @endif
 @if ($usr->can('job_category_add') || $usr->can('job_category_view') || $usr->can('job_category_update') || $usr->can('job_category_delete'))
-<li class="{{ Route::is('admin.job_category') ? 'active' : '' }}">
+{{-- <li class="{{ Route::is('admin.job_category') ? 'active' : '' }}">
     <a href="{{ route('admin.job_category') }}">
         
         <span>Job Category</span>
     </a>
-</li>
+</li> --}}
 @endif
 @if ($usr->can('special_news_add') || $usr->can('special_news_view') ||  $usr->can('special_news_update') ||  $usr->can('special_news_delete'))
         {{-- <li class="{{ Route::is('admin.special_news_info')  ? 'active' : '' }}"><a href="{{ route('admin.special_news_info') }}"> <span>Important Notes</span> </a></li> --}}
